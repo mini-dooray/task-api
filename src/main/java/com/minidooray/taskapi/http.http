@@ -1,0 +1,49 @@
+###
+POST /task/member
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "seq" : 1,
+  "name" : "tester"
+}
+
+###
+DELETE /task/member/1
+Content-Type: application/json
+Host: localhost:8002
+
+
+
+### project
+
+GET /task/project/3
+Content-Type: application/json
+Host: localhost:8002
+
+###
+
+POST /task/project
+Content-Type: application/json
+Host: localhost:8002
+
+{
+"name" : "project",
+"content" : "content"
+}
+
+###
+PUT /task/project/1
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "name" : "project",
+  "content" : "content",
+  "status" : 1
+}
+###
+
+DELETE /task/project/1
+Content-Type: application/json
+Host: localhost:8002
