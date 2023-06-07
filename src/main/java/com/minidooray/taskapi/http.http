@@ -1,5 +1,5 @@
 ###
-POST /task/member
+POST /member
 Content-Type: application/json
 Host: localhost:8002
 
@@ -9,7 +9,7 @@ Host: localhost:8002
 }
 
 ###
-DELETE /task/member/1
+DELETE /member/1
 Content-Type: application/json
 Host: localhost:8002
 
@@ -17,13 +17,13 @@ Host: localhost:8002
 
 ### project
 
-GET /task/project/3
+GET /project/3
 Content-Type: application/json
 Host: localhost:8002
 
 ###
 
-POST /task/project
+POST /project
 Content-Type: application/json
 Host: localhost:8002
 
@@ -33,7 +33,7 @@ Host: localhost:8002
 }
 
 ###
-PUT /task/project/1
+PUT /project/1
 Content-Type: application/json
 Host: localhost:8002
 
@@ -44,6 +44,40 @@ Host: localhost:8002
 }
 ###
 
-DELETE /task/project/1
+DELETE /project/1
 Content-Type: application/json
 Host: localhost:8002
+
+###
+GET /project/1/tasks
+Content-Type: application/json
+Host: localhost:8002
+
+
+###
+GET /project/1/task/1?memberSeq=3
+Content-Type: application/json
+Host: localhost:8002
+
+
+###
+POST /project/1/task
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "title": "Create Title",
+  "content": "Task Content",
+  "uploadFile": null,
+  "milestoneSeq": 1,
+  "prioritySeq": 1,
+  "memberSeq": 1,
+  "managers": [2, 3],
+  "references": [4, 5]
+}
+
+###
+DELETE /project/1/task/7?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+

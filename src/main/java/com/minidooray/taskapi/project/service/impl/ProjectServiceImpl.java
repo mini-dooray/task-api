@@ -3,7 +3,6 @@ package com.minidooray.taskapi.project.service.impl;
 import com.minidooray.taskapi.project.dto.request.RequestCreateProjectDto;
 import com.minidooray.taskapi.project.dto.request.RequestUpdateProjectDto;
 import com.minidooray.taskapi.project.dto.response.ResponseProjectDto;
-import com.minidooray.taskapi.project.dto.response.ResponseTaskListDto;
 import com.minidooray.taskapi.project.entity.Project;
 import com.minidooray.taskapi.project.exception.NotFoundProjectException;
 import com.minidooray.taskapi.project.repository.ProjectRepository;
@@ -11,8 +10,6 @@ import com.minidooray.taskapi.project.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -48,8 +45,10 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.deleteById(seq);
     }
 
-    @Transactional(readOnly = true)
-    public List<ResponseTaskListDto> getTaskList(Long seq) {
-        return projectRepository.findAllBySeq(seq);
-    }
+
+//    @Transactional(readOnly = true)
+//    public List<ResponseTaskListDto> getTaskList(Long seq) {
+//        return projectRepository.findAllBySeq(seq);
+//    }
+
 }

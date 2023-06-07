@@ -2,11 +2,13 @@ package com.minidooray.taskapi.membertask.entitiy;
 
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.task.entity.Task;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "member_task")
+@Setter
 public class MemberTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

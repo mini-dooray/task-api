@@ -1,5 +1,8 @@
 package com.minidooray.taskapi.comment.entity;
 
+import com.minidooray.taskapi.member.entity.Member;
+import com.minidooray.taskapi.task.entity.Task;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,4 +17,15 @@ public class Comment {
 
     @Embedded
     private CommentPeriod period;
+
+    @ManyToOne
+    @JoinColumn(name = "task_seq")
+    private Task task;
+
+    @ManyToOne
+    @JoinColumn(name = "writer_seq")
+    private Member member;
+// TODO 3 : 댓글 참조를 할것인지 다시한번 회의 하기.
+//    @OneToMany
+//    private List<ReferenceComment> referenceCommentList;
 }

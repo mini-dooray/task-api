@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
+@Setter
 @Access(AccessType.FIELD)
 public class TaskPeriod {
     @Column(name = "registered_date")

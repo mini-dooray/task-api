@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/task/project")
+@RequestMapping("/project")
 @RequiredArgsConstructor
 public class ProjectController {
     private final ProjectService projectService;
@@ -41,4 +41,10 @@ public class ProjectController {
         projectService.deleteProject(seq);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+//    @GetMapping("/{seq}/tasks")
+//    public ResponseEntity<List<ResponseTaskListDto>> getTasks(@PathVariable Long seq) {
+//        List<ResponseTaskListDto> taskList = projectService.getTaskList(seq);
+//        return ResponseEntity.status(HttpStatus.OK).body(taskList);
+//    }
 }

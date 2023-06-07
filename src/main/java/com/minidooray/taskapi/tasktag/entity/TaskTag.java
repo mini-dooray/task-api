@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class TaskTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "seq")
-    private Long id;
+    @Column(name = "seq")
+    private Long seq;
 
     @ManyToOne
     @JoinColumn(name = "tag_seq")

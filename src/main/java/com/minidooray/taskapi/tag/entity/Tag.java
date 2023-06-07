@@ -1,16 +1,18 @@
 package com.minidooray.taskapi.tag.entity;
 
 import com.minidooray.taskapi.project.entity.Project;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tag")
+@Setter
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "tag_seq")
-    private Long id;
+    @Column(name = "tag_seq")
+    private Long seq;
     @Column(unique = true)
     private String name;
 
