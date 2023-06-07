@@ -14,7 +14,7 @@ public class TaskTag {
     private Long seq;
 
     @ManyToOne
-    @JoinColumn(name = "tag_seq")
+    @JoinColumn
     private Tag tag;
 
     @ManyToOne

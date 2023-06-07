@@ -1,0 +1,51 @@
+### milestone 조회
+#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as col_0_0_ from milestone milestone0_ left outer join project project1_ on milestone0_.project_seq=project1_.project_seq where milestone0_.milestone_seq=? and project1_.project_seq=? limit ?
+#Hibernate: select milestone0_.name as col_0_0_, milestone0_.end_Date as col_1_0_, milestone0_.start_date as col_1_1_ from milestone milestone0_ where milestone0_.milestone_seq=?
+GET /project/1/milestone/1?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+### milestone 전체 조회
+#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as col_0_0_ from milestone milestone0_ left outer join project project1_ on milestone0_.project_seq=project1_.project_seq where milestone0_.milestone_seq=? and project1_.project_seq=? limit ?
+#Hibernate: select milestone0_.name as col_0_0_, milestone0_.end_Date as col_1_0_, milestone0_.start_date as col_1_1_ from milestone milestone0_ where milestone0_.milestone_seq=?
+GET /project/1/milestone/milestones?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+### milestone 등록
+#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
+#Hibernate: insert into milestone (name, end_Date, start_date, project_seq) values (?, ?, ?, ?)
+POST /project/1/milestone?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "name": "test",
+  "startDate" : "2023-03-12",
+  "endDate" : "2023-03-15"
+}
+
+### milestone 수정
+#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as col_0_0_ from milestone milestone0_ left outer join project project1_ on milestone0_.project_seq=project1_.project_seq where milestone0_.milestone_seq=? and project1_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as mileston1_3_0_, milestone0_.name as name2_3_0_, milestone0_.end_Date as end_date3_3_0_, milestone0_.start_date as start_da4_3_0_, milestone0_.project_seq as project_5_3_0_ from milestone milestone0_ where milestone0_.milestone_seq=?
+PUT /project/1/milestone/6?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "name": "modify",
+  "startDate": "2023-03-12",
+  "endDate": "2023-03-15"
+}
+
+### milestone 삭제
+#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as col_0_0_ from milestone milestone0_ left outer join project project1_ on milestone0_.project_seq=project1_.project_seq where milestone0_.milestone_seq=? and project1_.project_seq=? limit ?
+#Hibernate: select milestone0_.milestone_seq as mileston1_3_0_, milestone0_.name as name2_3_0_, milestone0_.end_Date as end_date3_3_0_, milestone0_.start_date as start_da4_3_0_, milestone0_.project_seq as project_5_3_0_ from milestone milestone0_ where milestone0_.milestone_seq=?
+#Hibernate: delete from milestone where milestone_seq=?
+DELETE /project/1/milestone/1?memberSeq=1
+Content-Type: application/json
+Host: localhost:8002

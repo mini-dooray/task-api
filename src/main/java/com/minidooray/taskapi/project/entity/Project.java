@@ -1,15 +1,21 @@
 package com.minidooray.taskapi.project.entity;
 
 import com.minidooray.taskapi.project.dto.request.RequestCreateProjectDto;
+import com.minidooray.taskapi.project.dto.request.RequestUpdateProjectDto;
+import com.minidooray.taskapi.projectmember.entity.ProjectMember;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "project")
 @Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +31,31 @@ public class Project {
     @Enumerated(EnumType.ORDINAL)
     private ProjectStatus status;
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private List<ProjectMember> projectMemberList;
+
     public static Project createByDto(RequestCreateProjectDto dto) {
-        Project project = new Project();
-        project.setContent(dto.getContent());
-        project.setName(dto.getName());
-        project.setStatus(ProjectStatus.ACTIVE);
-        return project;
+        return Project.builder()
+                .content(dto.getContent())
+                .name(dto.getName())
+                .status(ProjectStatus.ACTIVE).build();
+    }
+
+    public void setProjectMember(ProjectMember projectMember) {
+        this.projectMemberList = List.of(projectMember);
+    }
+
+    @Builder
+    public Project(String name, String content, ProjectStatus status, List<ProjectMember> projectMemberList) {
+        this.name = name;
+        this.content = content;
+        this.status = status;
+        this.projectMemberList = projectMemberList;
+    }
+
+    public void modifyProjectBYDto(RequestUpdateProjectDto dto) {
+        this.name = dto.getName();
+        this.content = dto.getContent();
+        this.status = dto.getStatus();
     }
 }

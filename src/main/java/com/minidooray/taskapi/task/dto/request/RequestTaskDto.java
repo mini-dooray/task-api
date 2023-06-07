@@ -15,7 +15,7 @@ public class RequestTaskDto {
     private String uploadFile;
     private Long milestoneSeq;
     private Long prioritySeq;
-    private Long memberSeq;
+    private Set<Long> tags;
     private Set<Long> managers;
     private Set<Long> references;
 }

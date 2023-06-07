@@ -1,6 +1,7 @@
 package com.minidooray.taskapi.member.service.impl;
 
 import com.minidooray.taskapi.member.dto.RequestMemberDto;
+import com.minidooray.taskapi.member.dto.RequestUpdateMemberDto;
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.member.exception.DuplicateMemberSeqException;
 import com.minidooray.taskapi.member.exception.NotFoundMemberException;
@@ -10,18 +11,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//TODO 1 : account api에서 맴버 이름이 변경,삭제되거나 맴버가 한명 추가될때마다 memberService 도 동작을 해야함.
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
-    public void deleteMember(Long id) {
-        if (!memberRepository.existsById(id)) {
-            throw new NotFoundMemberException();
-        }
-        memberRepository.deleteById(id);
+    public void deleteMember(Long memberSeq) {
+        memberRepository.deleteById(memberSeq);
     }
 
     public void createMember(RequestMemberDto dto) {
@@ -31,9 +29,9 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.saveAndFlush(new Member(dto.getSeq(), dto.getName()));
     }
 
-    public void updateMemberName(RequestMemberDto dto) {
-        Member member = memberRepository.findById(dto.getSeq())
+    public void updateMemberName(RequestUpdateMemberDto dto, Long memberSeq) {
+        Member member = memberRepository.findById(memberSeq)
                 .orElseThrow(NotFoundMemberException::new);
-        member.setName(dto.getName());
+        member.modifyMemberName(dto.getName());
     }
 }

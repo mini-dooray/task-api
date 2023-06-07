@@ -1,9 +1,6 @@
 package com.minidooray.taskapi.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +13,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
@@ -26,4 +22,7 @@ public class Member {
 
     private String name;
 
+    public void modifyMemberName(String name){
+        this.name = name;
+    }
 }

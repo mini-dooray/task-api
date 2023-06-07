@@ -1,0 +1,33 @@
+### member 추가
+# Hibernate: select count(*) as col_0_0_ from member member0_ where member0_.member_seq=?
+# Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+# Hibernate: insert into member (name, member_seq) values (?, ?)
+
+POST /member
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "seq": 100,
+  "name": "tester"
+}
+
+### member 수정
+# Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+# Hibernate: update member set name=? where member_seq=?
+
+PUT /member/100
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "name": "updater"
+}
+
+### member 삭제
+# Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+# Hibernate: delete from member where member_seq=?
+
+DELETE /member/100
+Content-Type: application/json
+Host: localhost:8002

@@ -1,6 +1,7 @@
 package com.minidooray.taskapi.member.controller;
 
 import com.minidooray.taskapi.member.dto.RequestMemberDto;
+import com.minidooray.taskapi.member.dto.RequestUpdateMemberDto;
 import com.minidooray.taskapi.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,15 +22,15 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping
-    public ResponseEntity<Void> modifyMember(@Valid @RequestBody RequestMemberDto dto) {
-        memberService.updateMemberName(dto);
+    @PutMapping("/{memberSeq}")
+    public ResponseEntity<Void> modifyMember(@Valid @RequestBody RequestUpdateMemberDto dto, @PathVariable Long memberSeq) {
+        memberService.updateMemberName(dto, memberSeq);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("/{seq}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long seq) {
-        memberService.deleteMember(seq);
+    @DeleteMapping("/{memberSeq}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberSeq) {
+        memberService.deleteMember(memberSeq);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
