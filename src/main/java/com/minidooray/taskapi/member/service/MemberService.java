@@ -1,7 +1,7 @@
 package com.minidooray.taskapi.member.service;
 
-import com.minidooray.taskapi.member.dto.RequestMemberDto;
-import com.minidooray.taskapi.member.dto.RequestUpdateMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestUpdateMemberDto;
 
 public interface MemberService {
     void deleteMember(Long memberSeq);

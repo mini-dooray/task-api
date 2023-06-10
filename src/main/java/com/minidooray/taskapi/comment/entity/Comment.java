@@ -2,10 +2,14 @@ package com.minidooray.taskapi.comment.entity;
 
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.task.entity.Task;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "comment")
 public class Comment {
     @Id

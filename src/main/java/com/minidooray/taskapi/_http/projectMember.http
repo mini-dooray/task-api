@@ -1,0 +1,27 @@
+### project member 모두 조회
+GET /project/1/projectMember/members
+Content-Type: application/json
+Host: localhost:8002
+
+### post
+POST /project/1/projectMember/member?adminSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "memberSeq": 3
+}
+
+### put
+PUT /project/1/projectMember/3?adminSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "authority": "ADMIN"
+}
+
+### delete
+DELETE /project/1/projectMember/3?adminSeq=1
+Content-Type: application/json
+Host: localhost:8002

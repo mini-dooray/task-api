@@ -1,4 +1,4 @@
-package com.minidooray.taskapi.member.dto;
+package com.minidooray.taskapi.member.dto.request;
 
 import lombok.Data;
 

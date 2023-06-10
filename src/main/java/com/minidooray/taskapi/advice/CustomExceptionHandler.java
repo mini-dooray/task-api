@@ -17,8 +17,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({NotFoundMemberException.class,
             DuplicateMemberSeqException.class,
             NotFoundMemberException.class,
-            NotFoundProjectException.class,
-            NotFoundProjectException.class,
+            NotFoundTaskException.class,
             NotFoundProjectException.class,
             NotFoundTagException.class,
             TagNotBelongToProjectException.class,
@@ -28,11 +27,11 @@ public class CustomExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> runtimeException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> runtimeException(Exception ex) {
+//        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+//    }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<ErrorResponse> customEmptyResultDataAccessException(EmptyResultDataAccessException ex) {

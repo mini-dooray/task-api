@@ -27,22 +27,20 @@ import com.minidooray.taskapi.task.exception.NotFoundTaskException;
 import com.minidooray.taskapi.task.repository.TaskRepository;
 import com.minidooray.taskapi.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
-
     private final ProjectRepository projectRepository;
     private final MilestoneRepository milestoneRepository;
-
     private final PriorityRepository priorityRepository;
     private final MemberRepository memberRepository;
     private final MemberTaskRepository memberTaskRepository;
@@ -64,6 +62,7 @@ public class TaskServiceImpl implements TaskService {
         authorizedCheck(memberSeq, projectSeq);
         return taskRepository.findByProjectSeq(projectSeq);
     }
+
     //TODO : tag 설정 추가
     public void createTask(RequestTaskDto dto, Long projectSeq, Long memberSeq) {
         authorizedCheck(memberSeq, projectSeq);
@@ -71,12 +70,13 @@ public class TaskServiceImpl implements TaskService {
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
         setTask(task, dto, project, memberSeq);
-//        for (Long tag : dto.getTags()) {
-//            tagRepository.findById(tag)
-//                    .orElseThrow(NotFoundTagException::new);
-//        }
+        for (Long tag : dto.getTags()) {
+            tagRepository.findById(tag)
+                    .orElseThrow(NotFoundTagException::new);
+        }
         taskRepository.saveAndFlush(task);
-        setMemberTaskType(dto, task, projectSeq);
+        setMemberTask(task,projectSeq,dto.getManagers(),MemberTaskType.MANAGER);
+        setMemberTask(task,projectSeq,dto.getReferences(),MemberTaskType.REFERENCE);
     }
 
     public void updateTask(Long taskSeq, Long projectSeq, Long memberSeq, RequestTaskDto dto) {
@@ -90,7 +90,8 @@ public class TaskServiceImpl implements TaskService {
 
         setTask(task, dto, project, memberSeq);
 
-        setMemberTaskType(dto, task, projectSeq);
+        setMemberTask(task,projectSeq,dto.getManagers(),MemberTaskType.MANAGER);
+        setMemberTask(task,projectSeq,dto.getReferences(),MemberTaskType.REFERENCE);
     }
 
     public void deleteTask(Long memberSeq, Long projectSeq, Long taskSeq) {
@@ -102,50 +103,36 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(taskSeq);
     }
 
-    private void setMemberTaskType(RequestTaskDto dto, Task task, Long projectSeq) {
-        for (Long manager : dto.getManagers()) {
-            if (projectMemberRepository.existsByMemberSeqAndProjectSeq(manager, projectSeq)) {
+    private void setMemberTask(Task task, Long projectSeq,Set<Long> members,MemberTaskType type) {
+        for (Long member : members) {
+            if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(member, projectSeq)) {
                 throw new UnauthorizedException();
             }
-            Member findMember = memberRepository.findById(manager)
+            Member findMember = memberRepository.findById(member)
                     .orElseThrow(NotFoundMemberException::new);
-            MemberTask memberTask = new MemberTask();
-            memberTask.setMember(findMember);
-            memberTask.setType(MemberTaskType.MANAGER);
-            memberTask.setTask(task);
-            memberTaskRepository.save(memberTask);
-        }
-
-        for (Long reference : dto.getReferences()) {
-            if (projectMemberRepository.existsByMemberSeqAndProjectSeq(reference, projectSeq)) {
-                throw new UnauthorizedException();
-            }
-            Member findMember = memberRepository.findById(reference)
-                    .orElseThrow(NotFoundMemberException::new);
-            MemberTask memberTask = new MemberTask();
-            memberTask.setMember(findMember);
-            memberTask.setType(MemberTaskType.REFERENCE);
-            memberTask.setTask(task);
+            MemberTask memberTask = MemberTask.builder()
+                    .member(findMember)
+                    .type(type)
+                    .task(task).build();
             memberTaskRepository.save(memberTask);
         }
     }
 
     private void setTask(Task task, RequestTaskDto dto, Project project, Long memberSeq) {
+        Milestone milestone = milestoneRepository.findById(dto.getMilestoneSeq())
+                .orElseThrow(NotFoundMilestoneException::new);
+        Priority priority = priorityRepository.findById(dto.getPrioritySeq())
+                .orElseThrow(NotFoundProjectException::new);
+        Member member = memberRepository.findById(memberSeq)
+                .orElseThrow(NotFoundMemberException::new);
         task.setTitle(dto.getTitle());
         task.setContent(dto.getContent());
         task.setUploadFile(dto.getUploadFile());
-        TaskPeriod taskPeriod = new TaskPeriod();
-        taskPeriod.setRegisteredDate(LocalDate.now());
+        TaskPeriod taskPeriod = TaskPeriod.builder().registeredDate(LocalDate.now()).build();
         task.setTaskPeriod(taskPeriod);
         task.setProject(project);
-        Milestone milestone = milestoneRepository.findById(dto.getMilestoneSeq())
-                .orElseThrow(NotFoundMilestoneException::new);
         task.setMilestone(milestone);
-        Priority priority = priorityRepository.findById(dto.getPrioritySeq())
-                .orElseThrow(NotFoundProjectException::new);
         task.setPriority(priority);
-        Member member = memberRepository.findById(memberSeq)
-                .orElseThrow(NotFoundMemberException::new);
         task.setRegistrant(member);
     }
 

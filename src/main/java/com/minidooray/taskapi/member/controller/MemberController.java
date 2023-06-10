@@ -1,7 +1,7 @@
 package com.minidooray.taskapi.member.controller;
 
-import com.minidooray.taskapi.member.dto.RequestMemberDto;
-import com.minidooray.taskapi.member.dto.RequestUpdateMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestUpdateMemberDto;
 import com.minidooray.taskapi.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

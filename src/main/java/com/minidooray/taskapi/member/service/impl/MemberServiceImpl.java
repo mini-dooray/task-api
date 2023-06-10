@@ -1,7 +1,7 @@
 package com.minidooray.taskapi.member.service.impl;
 
-import com.minidooray.taskapi.member.dto.RequestMemberDto;
-import com.minidooray.taskapi.member.dto.RequestUpdateMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestMemberDto;
+import com.minidooray.taskapi.member.dto.request.RequestUpdateMemberDto;
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.member.exception.DuplicateMemberSeqException;
 import com.minidooray.taskapi.member.exception.NotFoundMemberException;

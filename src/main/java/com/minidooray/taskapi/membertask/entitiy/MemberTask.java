@@ -2,13 +2,14 @@ package com.minidooray.taskapi.membertask.entitiy;
 
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.task.entity.Task;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "member_task")
-@Setter
+@NoArgsConstructor
 public class MemberTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +27,11 @@ public class MemberTask {
     @Column(name = "type")
     @Enumerated(EnumType.ORDINAL)
     private MemberTaskType type;
+
+    @Builder
+    public MemberTask(Member member, Task task, MemberTaskType type) {
+        this.member = member;
+        this.task = task;
+        this.type = type;
+    }
 }

@@ -1,14 +1,20 @@
 package com.minidooray.taskapi.comment.entity;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
 @Access(AccessType.FIELD)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CommentPeriod {
     @Column(name = "registered_date")
     private LocalDate registeredDate;
@@ -16,7 +22,8 @@ public class CommentPeriod {
     @Column(name = "last_update_date")
     private LocalDate lastUpdateDate;
 
-    public LocalDate getRecentDate() {
-        return Objects.isNull(lastUpdateDate) ? registeredDate : lastUpdateDate;
-    }
+//    @PrePersist
+//    public LocalDate getRecentDate() {
+//        return Objects.isNull(lastUpdateDate) ? registeredDate : lastUpdateDate;
+//    }
 }

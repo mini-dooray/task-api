@@ -4,12 +4,14 @@ import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.project.entity.Project;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "project_member")
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectMember {
@@ -33,6 +35,9 @@ public class ProjectMember {
     public ProjectMember(Project project, Member member, ProjectMemberAuthority authority) {
         this.project = project;
         this.member = member;
+        this.authority = authority;
+    }
+    public void updateAuthority(ProjectMemberAuthority authority){
         this.authority = authority;
     }
 }
