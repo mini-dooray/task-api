@@ -46,4 +46,10 @@ public class TagController {
         tagService.deleteTag(tagSeq);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping("/name")
+    public ResponseEntity<Boolean> checkDuplicateName(@RequestParam String name) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(tagService.checkDuplicateName(name));
+    }
 }

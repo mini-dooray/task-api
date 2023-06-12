@@ -36,3 +36,9 @@ Host: localhost:8002
 DELETE /tag/1
 Content-Type: application/json
 Host: localhost:8002
+
+
+### tag 이름 중복 체크
+GET /tag/name?name=test
+Content-Type: application/json
+Host: localhost:8002

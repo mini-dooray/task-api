@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TagServiceImpl implements TagService {
     private final TagRepository tagRepository;
     private final ProjectMemberRepository projectMemberRepository;
     private final ProjectRepository projectRepository;
 
-    @Transactional
     public void createTag(Long projectSeq, RequestTagDto dto) {
         Tag tag = new Tag();
         tag.setName(dto.getName());
@@ -29,7 +29,6 @@ public class TagServiceImpl implements TagService {
         tagRepository.save(tag);
     }
 
-    @Transactional
     public void updateTag(Long tagSeq, RequestTagDto dto) {
         Tag tag = tagRepository.findById(tagSeq)
                 .orElseThrow(NotFoundTagException::new);
@@ -46,8 +45,12 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAllByProjectSeq(projectSeq);
     }
 
-    @Transactional
     public void deleteTag(Long tagSeq) {
         tagRepository.deleteById(tagSeq);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean checkDuplicateName(String name) {
+        return tagRepository.existsByName(name);
     }
 }

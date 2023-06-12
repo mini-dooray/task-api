@@ -73,8 +73,8 @@ DROP TABLE IF EXISTS `priority`;
 
 CREATE TABLE `priority`
 (
-    `priority_seq` bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name`         nvarchar(10) NOT NULL
+    `priority_seq` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name`         bigint NOT NULL
 );
 
 DROP TABLE IF EXISTS `member_task`;

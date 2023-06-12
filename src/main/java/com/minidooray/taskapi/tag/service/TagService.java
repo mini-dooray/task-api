@@ -11,8 +11,11 @@ public interface TagService {
     void updateTag(Long tagSeq, RequestTagDto dto);
 
     ResponseTagDto getTag(Long tagSeq);
+
     List<ResponseTagDto> getTags(Long projectSeq);
 
     void deleteTag(Long tagSeq);
+
+    boolean checkDuplicateName(String name);
 
 }

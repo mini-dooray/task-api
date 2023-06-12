@@ -16,6 +16,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@NamedEntityGraph(name = "Task.withAllManyToOne", attributeNodes = {
+        @NamedAttributeNode("project"),
+        @NamedAttributeNode("milestone"),
+        @NamedAttributeNode("priority"),
+        @NamedAttributeNode("registrant")
+})
 @NamedEntityGraph(name = "Task.withMemberTasks", attributeNodes = @NamedAttributeNode("memberTasks"))
 @Entity
 @Table(name = "task")

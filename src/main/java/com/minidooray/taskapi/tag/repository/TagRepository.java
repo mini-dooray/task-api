@@ -13,6 +13,5 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     List<ResponseTagDto> findAllByProjectSeq(Long tagSeq);
 
-    Optional<Tag> findBySeqAndProjectSeq(Long tagSeq, Long projectSeq);
-    void deleteBySeqAndProjectSeq(Long tagSeq, Long projectSeq);
+    boolean existsByName(String name);
 }

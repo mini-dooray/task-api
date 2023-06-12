@@ -95,6 +95,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long taskSeq) {
         taskRepository.deleteById(taskSeq);
     }
+
     @Transactional
     public boolean authorizedCheckTaskSeqAndProjectSeq(Long taskSeq, Long projectSeq) {
         return taskRepository.existsBySeqAndProjectSeq(taskSeq, projectSeq);

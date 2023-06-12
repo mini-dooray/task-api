@@ -44,3 +44,8 @@ Host: localhost:8002
 DELETE /milestone/1
 Content-Type: application/json
 Host: localhost:8002
+
+### milestone 이름 중복 체크
+GET /milestone/name?name=test
+Content-Type: application/json
+Host: localhost:8002

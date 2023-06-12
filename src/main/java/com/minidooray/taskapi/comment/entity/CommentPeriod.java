@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -22,8 +25,10 @@ public class CommentPeriod {
     @Column(name = "last_update_date")
     private LocalDate lastUpdateDate;
 
-//    @PrePersist
-//    public String getRecentDate() {
-//        return Objects.isNull(lastUpdateDate) ? String.valueOf(registeredDate) : lastUpdateDate + " 수정됨.";
-//    }
+
+    //라스터 업데이트 날짜 출력 메소드
+
+    public LocalDate getRecentDate() {
+        return Objects.isNull(lastUpdateDate) ? registeredDate : lastUpdateDate;
+    }
 }

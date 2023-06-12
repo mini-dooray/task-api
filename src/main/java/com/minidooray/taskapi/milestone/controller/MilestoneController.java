@@ -48,4 +48,10 @@ public class MilestoneController {
         milestoneService.createMilestone(projectSeq, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping("/name")
+    public ResponseEntity<Boolean> checkDuplicateName(@RequestParam String name) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(milestoneService.checkDuplicateName(name));
+    }
 }

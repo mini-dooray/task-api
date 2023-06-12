@@ -1,0 +1,56 @@
+###댓글 생성
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq=?
+#Hibernate: insert into comment (content, writer_seq, last_update_date, registered_date, task_seq) values (?, ?, ?, ?, ?)
+POST /project/comment
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "content": "Test1",
+  "taskSeq": 1,
+  "memberSeq": 1,
+  "registeredDate": "2022-12-12"
+}
+
+
+###단일 댓글 확인
+#Hibernate: select comment0_.comment_seq as comment_1_0_, comment0_.content as content2_0_, comment0_.writer_seq as writer_s5_0_, comment0_.last_update_date as last_upd3_0_, comment0_.registered_date as register4_0_, comment0_.task_seq as task_seq6_0_ from comment comment0_ inner join member member1_ on comment0_.writer_seq=member1_.member_seq and (comment0_.writer_seq=member1_.member_seq) inner join task task2_ on comment0_.task_seq=task2_.task_seq and (comment0_.task_seq=task2_.task_seq) where comment0_.comment_seq=? limit ?
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq=?
+GET /project/comment/6
+Content-Type: application/json
+Host: localhost:8002
+
+
+###해당 맴버의 Seq로 전체 댓글 확인
+#Hibernate: select comment0_.comment_seq as comment_1_0_, comment0_.content as content2_0_, comment0_.writer_seq as writer_s5_0_, comment0_.last_update_date as last_upd3_0_, comment0_.registered_date as register4_0_, comment0_.task_seq as task_seq6_0_ from comment comment0_ inner join member member1_ on comment0_.writer_seq=member1_.member_seq and (comment0_.writer_seq=member1_.member_seq) inner join task task2_ on comment0_.task_seq=task2_.task_seq and (comment0_.task_seq=task2_.task_seq) where comment0_.writer_seq=?
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq in (?, ?)
+GET /project/comment/list/2
+Content-Type: application/json
+Host: localhost:8002
+
+
+###댓글 수정
+#Hibernate: select comment0_.comment_seq as comment_1_0_, comment0_.content as content2_0_, comment0_.writer_seq as writer_s5_0_, comment0_.last_update_date as last_upd3_0_, comment0_.registered_date as register4_0_, comment0_.task_seq as task_seq6_0_ from comment comment0_ inner join member member1_ on comment0_.writer_seq=member1_.member_seq and (comment0_.writer_seq=member1_.member_seq) inner join task task2_ on comment0_.task_seq=task2_.task_seq and (comment0_.task_seq=task2_.task_seq) where comment0_.comment_seq=? limit ?
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq=?
+PUT /project/comment/6
+Content-Type: application/json
+Host: localhost:8002
+
+{
+  "content": "수정 테스트"
+}
+
+###댓글 삭제
+#Hibernate: select comment0_.comment_seq as comment_1_0_, comment0_.content as content2_0_, comment0_.writer_seq as writer_s5_0_, comment0_.last_update_date as last_upd3_0_, comment0_.registered_date as register4_0_, comment0_.task_seq as task_seq6_0_ from comment comment0_ inner join member member1_ on comment0_.writer_seq=member1_.member_seq and (comment0_.writer_seq=member1_.member_seq) inner join task task2_ on comment0_.task_seq=task2_.task_seq and (comment0_.task_seq=task2_.task_seq) where comment0_.comment_seq=? limit ?
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq=?
+#Hibernate: delete from comment where comment_seq=?
+DELETE /project/comment/6?taskSeq=1&memberSeq=1
+Content-Type: application/json
+Host: localhost:8002
+
+

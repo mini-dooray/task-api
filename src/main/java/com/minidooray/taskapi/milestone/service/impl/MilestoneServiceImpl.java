@@ -18,6 +18,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MilestoneServiceImpl implements MilestoneService {
 
@@ -25,7 +26,6 @@ public class MilestoneServiceImpl implements MilestoneService {
     private final ProjectRepository projectRepository;
 
 
-    @Transactional
     public void createMilestone(Long projectSeq, RequestMilestoneDto dto) {
         MilestonePeriod milestonePeriod = new MilestonePeriod(dto.getStartDate(), dto.getEndDate());
         Milestone milestone = Milestone.builder()
@@ -36,7 +36,6 @@ public class MilestoneServiceImpl implements MilestoneService {
         milestoneRepository.saveAndFlush(milestone);
     }
 
-    @Transactional
     public void updateMilestone(Long projectSeq, RequestMilestoneDto dto) {
         Milestone milestone = milestoneRepository.findById(projectSeq)
                 .orElseThrow(NotFoundMilestoneException::new);
@@ -54,9 +53,11 @@ public class MilestoneServiceImpl implements MilestoneService {
         return milestoneRepository.findAllByProjectSeq(projectSeq);
     }
 
-    @Transactional
     public void deleteMilestone(Long milestoneSeq) {
 //        List<Task> tasks = taskRepository.findByMilestoneSeq(milestoneSeq);
         milestoneRepository.deleteById(milestoneSeq);
+    }
+    public boolean checkDuplicateName(String name){
+        return milestoneRepository.existsByName(name);
     }
 }

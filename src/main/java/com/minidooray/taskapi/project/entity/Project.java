@@ -1,5 +1,6 @@
 package com.minidooray.taskapi.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.minidooray.taskapi.project.dto.request.RequestCreateProjectDto;
 import com.minidooray.taskapi.project.dto.request.RequestUpdateProjectDto;
 import com.minidooray.taskapi.projectmember.entity.ProjectMember;
@@ -31,6 +32,7 @@ public class Project {
     @Enumerated(EnumType.ORDINAL)
     private ProjectStatus status;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private List<ProjectMember> projectMemberList;
 
