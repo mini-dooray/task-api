@@ -9,15 +9,18 @@ import com.minidooray.taskapi.project.entity.Project;
 import java.util.List;
 
 public interface ProjectService {
-    ResponseProjectDto getProject(Long projectSeq, Long memberSeq);
+    ResponseProjectDto getProject(Long projectSeq);
 
     ResponseProjectDto createProject(RequestCreateProjectDto dto, Long memberSeq);
 
-    ResponseProjectDto updateProject(Long projectSeq, Long memberSeq, RequestUpdateProjectDto dto);
+    ResponseProjectDto updateProject(Long projectSeq, RequestUpdateProjectDto dto);
 
-    void deleteProject(Long seq, Long memberSeq);
+    void deleteProject(Long seq);
 
     List<ResponseProjectListDto> getProjects(Long memberSeq);
+    boolean authorizationCheckProjectSeqAndMemberSeq(Long projectSeq, Long memberSeq);
+    boolean checkDuplicateName(String projectName);
+
     default ResponseProjectDto createResponseProjectDtoByEntity(Project project) {
         ResponseProjectDto responseProjectDto = new ResponseProjectDto();
         responseProjectDto.setSeq(project.getSeq());

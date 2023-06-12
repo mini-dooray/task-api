@@ -1,23 +1,18 @@
 ### tag 조회
-#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
-#Hibernate: select tag0_.tag_seq as col_0_0_, tag0_.name as col_1_0_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=? and project1_.project_seq=?
-GET /project/1/tag/1?memberSeq=1
+#Hibernate: select tag0_.tag_seq as col_0_0_, tag0_.name as col_1_0_ from tag tag0_ where tag0_.tag_seq=?
+GET /tag/1
 Content-Type: application/json
 Host: localhost:8002
 
 ### tag 전체 조회
-#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
 #Hibernate: select tag0_.tag_seq as col_0_0_, tag0_.name as col_1_0_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where project1_.project_seq=?
-
-GET /project/1/tag/tags?memberSeq=1
+GET /tag/tags?projectSeq=1
 Content-Type: application/json
 Host: localhost:8002
 
 ### tag 추가
-#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
 #Hibernate: insert into tag (name, project_seq) values (?, ?)
-
-POST /project/1/tag?memberSeq=1
+POST /tag?projectSeq=1
 Content-Type: application/json
 Host: localhost:8002
 
@@ -26,11 +21,8 @@ Host: localhost:8002
 }
 
 ### tag 수정
-#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
-#Hibernate: select tag0_.tag_seq as tag_seq1_7_, tag0_.name as name2_7_, tag0_.project_seq as project_3_7_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=? and project1_.project_seq=?
-#Hibernate: select project0_.project_seq as project_1_5_0_, project0_.content as content2_5_0_, project0_.name as name3_5_0_, project0_.status as status4_5_0_ from project project0_ where project0_.project_seq=?
-#Hibernate: update tag set name=?, project_seq=? where tag_seq=?
-PUT /project/1/tag/1?memberSeq=1
+#Hibernate: select tag0_.tag_seq as tag_seq1_7_0_, tag0_.name as name2_7_0_, tag0_.project_seq as project_3_7_0_, project1_.project_seq as project_1_5_1_, project1_.content as content2_5_1_, project1_.name as name3_5_1_, project1_.status as status4_5_1_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=?
+PUT /tag/1
 Content-Type: application/json
 Host: localhost:8002
 
@@ -39,10 +31,8 @@ Host: localhost:8002
 }
 
 ### tag 삭제
-#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
-#Hibernate: select tag0_.tag_seq as tag_seq1_7_, tag0_.name as name2_7_, tag0_.project_seq as project_3_7_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=? and project1_.project_seq=?
-#Hibernate: select project0_.project_seq as project_1_5_0_, project0_.content as content2_5_0_, project0_.name as name3_5_0_, project0_.status as status4_5_0_ from project project0_ where project0_.project_seq=?
+#Hibernate: select tag0_.tag_seq as tag_seq1_7_0_, tag0_.name as name2_7_0_, tag0_.project_seq as project_3_7_0_, project1_.project_seq as project_1_5_1_, project1_.content as content2_5_1_, project1_.name as name3_5_1_, project1_.status as status4_5_1_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=?
 #Hibernate: delete from tag where tag_seq=?
-DELETE /project/1/tag/7?memberSeq=1
+DELETE /tag/1
 Content-Type: application/json
 Host: localhost:8002

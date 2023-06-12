@@ -5,25 +5,22 @@ Content-Type: application/json
 Host: localhost:8002
 
 ### post
-#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
-#Hibernate: select projectmem0_.project_member_seq as project_1_6_, projectmem0_.authority as authorit2_6_, projectmem0_.member_seq as member_s3_6_, projectmem0_.project_seq as project_4_6_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
-#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
 #Hibernate: select project0_.project_seq as project_1_5_0_, project0_.content as content2_5_0_, project0_.name as name3_5_0_, project0_.status as status4_5_0_ from project project0_ where project0_.project_seq=?
 #Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
 #Hibernate: insert into project_member (authority, member_seq, project_seq) values (?, ?, ?)
-POST /project/1/projectMember/member?adminSeq=1
+POST /project/1/projectMember/member
 Content-Type: application/json
 Host: localhost:8002
 
 {
-  "memberSeq": 3
+  "memberSeq": 4
 }
 
 ### put
 #Hibernate: select projectmem0_.project_member_seq as project_1_6_0_, member1_.member_seq as member_s1_1_1_, project2_.project_seq as project_1_5_2_, projectmem0_.authority as authorit2_6_0_, projectmem0_.member_seq as member_s3_6_0_, projectmem0_.project_seq as project_4_6_0_, member1_.name as name2_1_1_, project2_.content as content2_5_2_, project2_.name as name3_5_2_, project2_.status as status4_5_2_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
-#Hibernate: select projectmem0_.project_member_seq as project_1_6_0_, member1_.member_seq as member_s1_1_1_, project2_.project_seq as project_1_5_2_, projectmem0_.authority as authorit2_6_0_, projectmem0_.member_seq as member_s3_6_0_, projectmem0_.project_seq as project_4_6_0_, member1_.name as name2_1_1_, project2_.content as content2_5_2_, project2_.name as name3_5_2_, project2_.status as status4_5_2_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
 #Hibernate: update project_member set authority=?, member_seq=?, project_seq=? where project_member_seq=?
-PUT /project/1/projectMember/3?adminSeq=1
+PUT /project/1/projectMember/3
 Content-Type: application/json
 Host: localhost:8002
 
@@ -33,8 +30,12 @@ Host: localhost:8002
 
 ### delete
 #Hibernate: select projectmem0_.project_member_seq as project_1_6_0_, member1_.member_seq as member_s1_1_1_, project2_.project_seq as project_1_5_2_, projectmem0_.authority as authorit2_6_0_, projectmem0_.member_seq as member_s3_6_0_, projectmem0_.project_seq as project_4_6_0_, member1_.name as name2_1_1_, project2_.content as content2_5_2_, project2_.name as name3_5_2_, project2_.status as status4_5_2_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
-#Hibernate: select projectmem0_.project_member_seq as project_1_6_, projectmem0_.authority as authorit2_6_, projectmem0_.member_seq as member_s3_6_, projectmem0_.project_seq as project_4_6_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
 #Hibernate: delete from project_member where project_member_seq=?
-DELETE /project/1/projectMember/3?adminSeq=1
+DELETE /project/1/projectMember/3
+Content-Type: application/json
+Host: localhost:8002
+
+### 작업을 하는 맴버가 admin인지
+GET /project/1/projectMember/admin/1
 Content-Type: application/json
 Host: localhost:8002

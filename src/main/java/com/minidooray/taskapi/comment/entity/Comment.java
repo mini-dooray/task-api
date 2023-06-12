@@ -29,7 +29,4 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "writer_seq")
     private Member member;
-// TODO 3 : 댓글 참조를 할것인지 다시한번 회의 하기.
-//    @OneToMany
-//    private List<ReferenceComment> referenceCommentList;
 }

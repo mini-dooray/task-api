@@ -6,20 +6,20 @@ import com.minidooray.taskapi.membertask.entitiy.MemberTask;
 import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.priority.entity.Priority;
 import com.minidooray.taskapi.project.entity.Project;
+import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.tasktag.entity.TaskTag;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @NamedEntityGraph(name = "Task.withMemberTasks", attributeNodes = @NamedAttributeNode("memberTasks"))
 @Entity
 @Table(name = "task")
 @Getter
-@Setter
 @NoArgsConstructor
 public class Task {
     @Id
@@ -72,5 +72,17 @@ public class Task {
         this.memberTasks = memberTasks;
         this.taskTags = taskTags;
         this.comments = comments;
+    }
+
+    public void createTask(RequestTaskDto dto, Project project, Milestone milestone, Priority priority, Member member) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.uploadFile = dto.getUploadFile();
+        this.taskPeriod = TaskPeriod.builder()
+                .registeredDate(LocalDate.now()).build();
+        this.project = project;
+        this.milestone = milestone;
+        this.priority = priority;
+        this.registrant = member;
     }
 }

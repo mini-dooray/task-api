@@ -8,9 +8,13 @@ import java.util.List;
 public interface ProjectMemberService {
     List<Member> getMemberByProjectSeq(Long projectSeq);
 
-    void addMember(Long memberSeq, Long projectSeq, Long adminSeq);
+    void addMember(Long memberSeq, Long projectSeq);
 
-    void updateAuthority(Long memberSeq, Long projectSeq, Long adminSeq, ProjectMemberAuthority authority);
+    void updateAuthority(Long memberSeq, Long projectSeq, ProjectMemberAuthority authority);
 
-    void deleteProjectMember(Long memberSeq, Long projectSeq, Long adminSeq);
+    void deleteProjectMember(Long memberSeq, Long projectSeq);
+
+    boolean authorizationCheckMemberIsAdmin(Long projectSeq, Long adminSeq);
+
+    boolean authorizationCheckMemberSeqAndProjectSeq(Long memberSeq, Long projectSeq);
 }

@@ -173,12 +173,12 @@ VALUES (1, 1, 2, 'Comment 1 for Task 1', '2023-06-02', NULL),
        (5, 4, 2, 'Comment 1 for Task 4', '2023-06-06', NULL);
 
 -- Inserting data into the `task_tag` table
-INSERT INTO `task_tag` (`seq`, `task_seq`, `tag_seq`)
-VALUES (1, 1, 1),
-       (2, 1, 2),
-       (3, 2, 3),
-       (4, 3, 4),
-       (5, 4, 5);
+INSERT INTO `task_tag` (`task_seq`, `tag_seq`)
+VALUES (1, 1),
+       (1, 2),
+       (2, 3),
+       (3, 4),
+       (4, 5);
 
 -- Inserting data into the `member_task` table
 INSERT INTO `member_task` (`member_task_seq`, `task_seq`, `type`, `member_seq`)

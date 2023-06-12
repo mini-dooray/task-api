@@ -7,13 +7,13 @@ import com.minidooray.taskapi.task.dto.response.ResponseTaskListDto;
 import java.util.List;
 
 public interface TaskService {
-    ResponseTaskDto getTask(Long memberSeq, Long projectSeq, Long taskSeq);
+    ResponseTaskDto getTask(Long taskSeq);
 
-    List<ResponseTaskListDto> getTasks(Long memberSeq, Long projectSeq);
+    List<ResponseTaskListDto> getTasks(Long projectSeq);
 
     void createTask(RequestTaskDto dto, Long projectSeq, Long memberSeq);
 
-    void updateTask(Long taskSeq, Long projectSeq, Long memberSeq, RequestTaskDto dto);
+    void deleteTask(Long taskSeq);
 
-    void deleteTask(Long memberSeq, Long projectSeq, Long taskSeq);
+    boolean authorizedCheckTaskSeqAndProjectSeq(Long taskSeq,Long projectSeq);
 }

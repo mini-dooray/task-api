@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<ResponseProjectListDto> findAllByProjectMemberListMemberSeq(Long memberSeq);
+    boolean existsByName(String name);
 }

@@ -12,9 +12,10 @@ public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
 
     List<ResponseMilestoneListDto> findAllByProjectSeq(Long projectSeq);
 
-    Optional<ResponseMilestoneDto> findBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
+    Optional<ResponseMilestoneDto> findBySeq(Long milestoneSeq);
 
     Optional<Milestone> findMilestoneBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
 
     void deleteBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
+
 }

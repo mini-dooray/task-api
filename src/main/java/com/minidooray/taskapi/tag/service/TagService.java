@@ -6,13 +6,13 @@ import com.minidooray.taskapi.tag.dto.response.ResponseTagDto;
 import java.util.List;
 
 public interface TagService {
-    void createTag(Long memberSeq, Long projectSeq, RequestTagDto dto);
+    void createTag(Long projectSeq, RequestTagDto dto);
 
-    void updateTag(Long tagSeq, Long memberSeq, Long projectSeq, RequestTagDto dto);
+    void updateTag(Long tagSeq, RequestTagDto dto);
 
-    ResponseTagDto getTag(Long tagSeq, Long memberSeq, Long projectSeq);
+    ResponseTagDto getTag(Long tagSeq);
+    List<ResponseTagDto> getTags(Long projectSeq);
 
-    void deleteTag(Long tagSeq, Long memberSeq, Long projectSeq);
+    void deleteTag(Long tagSeq);
 
-    List<ResponseTagDto> getTags(Long memberSeq, Long projectSeq);
 }

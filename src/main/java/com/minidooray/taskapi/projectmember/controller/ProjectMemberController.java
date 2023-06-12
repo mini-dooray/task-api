@@ -25,21 +25,32 @@ public class ProjectMemberController {
     }
 
     @PostMapping("/member")
-    public ResponseEntity<Void> addMember(@PathVariable Long projectSeq, @RequestParam Long adminSeq, @Valid @RequestBody RequestProjectMemberCreateDto dto) {
-        projectMemberService.addMember(dto.getMemberSeq(), projectSeq, adminSeq);
+    public ResponseEntity<Void> addMember(@PathVariable Long projectSeq, @Valid @RequestBody RequestProjectMemberCreateDto dto) {
+        projectMemberService.addMember(dto.getMemberSeq(), projectSeq);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{memberSeq}")
-    public ResponseEntity<Void> updateMemberAuthority(@PathVariable Long memberSeq, @PathVariable Long projectSeq, @RequestParam Long adminSeq, @Valid @RequestBody RequestProjectMemberDto dto) {
-        projectMemberService.updateAuthority(memberSeq, projectSeq, adminSeq, dto.getAuthority());
+    public ResponseEntity<Void> updateMemberAuthority(@PathVariable Long memberSeq, @PathVariable Long projectSeq, @Valid @RequestBody RequestProjectMemberDto dto) {
+        projectMemberService.updateAuthority(memberSeq, projectSeq, dto.getAuthority());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{memberSeq}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long memberSeq, @PathVariable Long projectSeq, @RequestParam Long adminSeq) {
-        projectMemberService.deleteProjectMember(memberSeq, projectSeq, adminSeq);
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberSeq, @PathVariable Long projectSeq) {
+        projectMemberService.deleteProjectMember(memberSeq, projectSeq);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("admin/{adminSeq}")
+    public ResponseEntity<Boolean> authorizationCheckMemberIsAdmin(@PathVariable Long projectSeq, @PathVariable Long adminSeq) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(projectMemberService.authorizationCheckMemberIsAdmin(projectSeq, adminSeq));
+    }
+
+    @GetMapping("member/{memberSeq}")
+    public ResponseEntity<Boolean> authorizationCheckMemberSeqAndProjectSeq(@PathVariable Long projectSeq, @PathVariable Long memberSeq) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(projectMemberService.authorizationCheckMemberSeqAndProjectSeq(memberSeq, projectSeq));
+    }
 }

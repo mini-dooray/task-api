@@ -10,36 +10,37 @@
 #Hibernate: select tasktags0_.task_seq as task_seq3_10_0_, tasktags0_.seq as seq1_10_0_, tasktags0_.seq as seq1_10_1_, tasktags0_.tag_seq as tag_seq2_10_1_, tasktags0_.task_seq as task_seq3_10_1_, tag1_.tag_seq as tag_seq1_8_2_, tag1_.name as name2_8_2_, tag1_.project_seq as project_3_8_2_, project2_.project_seq as project_1_5_3_, project2_.content as content2_5_3_, project2_.name as name3_5_3_, project2_.status as status4_5_3_ from task_tag tasktags0_ left outer join tag tag1_ on tasktags0_.tag_seq=tag1_.tag_seq left outer join project project2_ on tag1_.project_seq=project2_.project_seq where tasktags0_.task_seq=?
 #Hibernate: select comments0_.task_seq as task_seq6_0_0_, comments0_.comment_seq as comment_1_0_0_, comments0_.comment_seq as comment_1_0_1_, comments0_.content as content2_0_1_, comments0_.writer_seq as writer_s5_0_1_, comments0_.last_update_date as last_upd3_0_1_, comments0_.registered_date as register4_0_1_, comments0_.task_seq as task_seq6_0_1_, member1_.member_seq as member_s1_1_2_, member1_.name as name2_1_2_ from comment comments0_ left outer join member member1_ on comments0_.writer_seq=member1_.member_seq where comments0_.task_seq=?
 
-GET /project/1/task/1?memberSeq=1
+GET /task/2
 Content-Type: application/json
 Host: localhost:8002
 
 ### task 전체 조회
-#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
 #Hibernate: select task0_.task_seq as task_seq1_8_0_, membertask2_.member_task_seq as member_t1_2_1_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_, membertask2_.member_seq as member_s3_2_1_, membertask2_.task_seq as task_seq4_2_1_, membertask2_.type as type2_2_1_, membertask2_.task_seq as task_seq4_2_0__, membertask2_.member_task_seq as member_t1_2_0__ from task task0_ left outer join project project1_ on task0_.project_seq=project1_.project_seq left outer join member_task membertask2_ on task0_.task_seq=membertask2_.task_seq where project1_.project_seq=?
 #Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq in (?, ?, ?)
-GET /project/1/task/tasks?memberSeq=1
+GET /task/tasks?projectSeq=1
 Content-Type: application/json
 Host: localhost:8002
 
 ### task 추가
-#Hibernate: select projectmem0_.project_member_seq as col_0_0_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=? limit ?
 #Hibernate: select project0_.project_seq as project_1_5_0_, project0_.content as content2_5_0_, project0_.name as name3_5_0_, project0_.status as status4_5_0_ from project project0_ where project0_.project_seq=?
 #Hibernate: select milestone0_.milestone_seq as mileston1_3_0_, milestone0_.name as name2_3_0_, milestone0_.end_Date as end_date3_3_0_, milestone0_.start_date as start_da4_3_0_, milestone0_.project_seq as project_5_3_0_ from milestone milestone0_ where milestone0_.milestone_seq=?
 #Hibernate: select priority0_.priority_seq as priority1_4_0_, priority0_.name as name2_4_0_ from priority priority0_ where priority0_.priority_seq=?
 #Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
 #Hibernate: insert into task (content, milestone_seq, priority_seq, project_seq, registrant_seq, last_update_date, registered_date, title, upload_file) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+#Hibernate: select tag0_.tag_seq as tag_seq1_7_0_, tag0_.name as name2_7_0_, tag0_.project_seq as project_3_7_0_, project1_.project_seq as project_1_5_1_, project1_.content as content2_5_1_, project1_.name as name3_5_1_, project1_.status as status4_5_1_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=?
+#Hibernate: insert into task_tag (tag_seq, task_seq) values (?, ?)
+#Hibernate: select tag0_.tag_seq as tag_seq1_7_0_, tag0_.name as name2_7_0_, tag0_.project_seq as project_3_7_0_, project1_.project_seq as project_1_5_1_, project1_.content as content2_5_1_, project1_.name as name3_5_1_, project1_.status as status4_5_1_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=?
+#Hibernate: insert into task_tag (tag_seq, task_seq) values (?, ?)
+#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
+#Hibernate: insert into member_task (member_seq, task_seq, type) values (?, ?, ?)
+#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
 #Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
 #Hibernate: insert into member_task (member_seq, task_seq, type) values (?, ?, ?)
-#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
-#Hibernate: insert into member_task (member_seq, task_seq, type) values (?, ?, ?)
-#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
-#Hibernate: insert into member_task (member_seq, task_seq, type) values (?, ?, ?)
-#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
 #Hibernate: insert into member_task (member_seq, task_seq, type) values (?, ?, ?)
 
 ### 아래 내용은 권한 떄문에 안됨
-POST /project/1/task?memberSeq=1
+POST /task/member/1?projectSeq=1
 Content-Type: application/json
 Host: localhost:8002
 
@@ -63,13 +64,16 @@ Host: localhost:8002
 }
 
 ### task 삭제
-#Hibernate: select count(projectmem0_.project_member_seq) as col_0_0_ from project_member projectmem0_ inner join project project1_ on projectmem0_.project_seq=project1_.project_seq inner join member member2_ on projectmem0_.member_seq=member2_.member_seq where member2_.member_seq=? and project1_.project_seq=? limit ?
-#Hibernate: select task0_.task_seq as col_0_0_ from task task0_ left outer join project project1_ on task0_.project_seq=project1_.project_seq where task0_.task_seq=? and project1_.project_seq=? limit ?
-#Hibernate: select count(*) as col_0_0_ from task task0_ where task0_.task_seq=?
 #Hibernate: select task0_.task_seq as task_seq1_8_0_, task0_.content as content2_8_0_, task0_.milestone_seq as mileston7_8_0_, task0_.priority_seq as priority8_8_0_, task0_.project_seq as project_9_8_0_, task0_.registrant_seq as registr10_8_0_, task0_.last_update_date as last_upd3_8_0_, task0_.registered_date as register4_8_0_, task0_.title as title5_8_0_, task0_.upload_file as upload_f6_8_0_ from task task0_ where task0_.task_seq=?
 #Hibernate: select comments0_.task_seq as task_seq6_0_2_, comments0_.comment_seq as comment_1_0_2_, comments0_.comment_seq as comment_1_0_1_, comments0_.content as content2_0_1_, comments0_.writer_seq as writer_s5_0_1_, comments0_.last_update_date as last_upd3_0_1_, comments0_.registered_date as register4_0_1_, comments0_.task_seq as task_seq6_0_1_, member1_.member_seq as member_s1_1_0_, member1_.name as name2_1_0_ from comment comments0_ left outer join member member1_ on comments0_.writer_seq=member1_.member_seq where comments0_.task_seq=?
 #Hibernate: select membertask0_.task_seq as task_seq4_2_2_, membertask0_.member_task_seq as member_t1_2_2_, membertask0_.member_task_seq as member_t1_2_1_, membertask0_.member_seq as member_s3_2_1_, membertask0_.task_seq as task_seq4_2_1_, membertask0_.type as type2_2_1_, member1_.member_seq as member_s1_1_0_, member1_.name as name2_1_0_ from member_task membertask0_ left outer join member member1_ on membertask0_.member_seq=member1_.member_seq where membertask0_.task_seq=?
-#Hibernate: select tasktags0_.task_seq as task_seq3_9_3_, tasktags0_.seq as seq1_9_3_, tasktags0_.seq as seq1_9_2_, tasktags0_.tag_tag_seq as tag_tag_2_9_2_, tasktags0_.task_seq as task_seq3_9_2_, tag1_.tag_seq as tag_seq1_7_0_, tag1_.name as name2_7_0_, tag1_.project_seq as project_3_7_0_, project2_.project_seq as project_1_5_1_, project2_.content as content2_5_1_, project2_.name as name3_5_1_, project2_.status as status4_5_1_ from task_tag tasktags0_ left outer join tag tag1_ on tasktags0_.tag_tag_seq=tag1_.tag_seq left outer join project project2_ on tag1_.project_seq=project2_.project_seq where tasktags0_.task_seq=?
-DELETE /project/1/task/1?memberSeq=1
+#Hibernate: select tasktags0_.task_seq as task_seq3_9_3_, tasktags0_.seq as seq1_9_3_, tasktags0_.seq as seq1_9_2_, tasktags0_.tag_seq as tag_seq2_9_2_, tasktags0_.task_seq as task_seq3_9_2_, tag1_.tag_seq as tag_seq1_7_0_, tag1_.name as name2_7_0_, tag1_.project_seq as project_3_7_0_, project2_.project_seq as project_1_5_1_, project2_.content as content2_5_1_, project2_.name as name3_5_1_, project2_.status as status4_5_1_ from task_tag tasktags0_ left outer join tag tag1_ on tasktags0_.tag_seq=tag1_.tag_seq left outer join project project2_ on tag1_.project_seq=project2_.project_seq where tasktags0_.task_seq=?
+#Hibernate: delete from comment where comment_seq=?
+#Hibernate: delete from comment where comment_seq=?
+#Hibernate: delete from member_task where member_task_seq=?
+#Hibernate: delete from task_tag where seq=?
+#Hibernate: delete from task_tag where seq=?
+#Hibernate: delete from task where task_seq=?
+DELETE /task/1
 Content-Type: application/json
 Host: localhost:8002

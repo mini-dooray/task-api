@@ -23,8 +23,6 @@ import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskListDto;
 import com.minidooray.taskapi.task.entity.Task;
-import com.minidooray.taskapi.task.entity.TaskPeriod;
-import com.minidooray.taskapi.task.exception.NotFoundTaskException;
 import com.minidooray.taskapi.task.repository.TaskRepository;
 import com.minidooray.taskapi.task.service.TaskService;
 import com.minidooray.taskapi.tasktag.entity.TaskTag;
@@ -33,12 +31,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
@@ -47,72 +43,61 @@ public class TaskServiceImpl implements TaskService {
     private final PriorityRepository priorityRepository;
     private final MemberRepository memberRepository;
     private final MemberTaskRepository memberTaskRepository;
-
     private final ProjectMemberRepository projectMemberRepository;
     private final TagRepository tagRepository;
     private final TaskTagRepository taskTagRepository;
 
-    // TODO : JPQL 만들기
     @Transactional(readOnly = true)
-    public ResponseTaskDto getTask(Long memberSeq, Long projectSeq, Long taskSeq) {
-        authorizedCheck(memberSeq, projectSeq, taskSeq);
+    public ResponseTaskDto getTask(Long taskSeq) {
         return taskRepository.findBySeq(taskSeq);
     }
 
-    //TODO : JPQL 만들기
     @Transactional(readOnly = true)
-    public List<ResponseTaskListDto> getTasks(Long memberSeq, Long projectSeq) {
-        authorizedCheck(memberSeq, projectSeq);
+    public List<ResponseTaskListDto> getTasks(Long projectSeq) {
         return taskRepository.findByProjectSeq(projectSeq);
     }
 
-    //TODO : tag 설정 추가
+    @Transactional
     public void createTask(RequestTaskDto dto, Long projectSeq, Long memberSeq) {
-        authorizedCheck(memberSeq, projectSeq);
         Task task = new Task();
+
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
-        setTask(task, dto, project, memberSeq);
-        setTaskTag(dto.getTags(), task);
+
+        Milestone milestone = milestoneRepository.findById(dto.getMilestoneSeq())
+                .orElseThrow(NotFoundMilestoneException::new);
+
+        Priority priority = priorityRepository.findById(dto.getPrioritySeq())
+                .orElseThrow(NotFoundProjectException::new);
+
+        Member member = memberRepository.findById(memberSeq)
+                .orElseThrow(NotFoundMemberException::new);
+
+        task.createTask(dto, project, milestone, priority, member);
+
         taskRepository.saveAndFlush(task);
-        setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
-        setMemberTask(task, projectSeq, dto.getReferences(), MemberTaskType.REFERENCE);
-    }
 
-    public void updateTask(Long taskSeq, Long projectSeq, Long memberSeq, RequestTaskDto dto) {
-        authorizedCheck(memberSeq, projectSeq, taskSeq);
-
-        Task task = taskRepository.findById(taskSeq)
-                .orElseThrow(NotFoundTaskException::new);
-
-        Project project = projectRepository.findById(projectSeq)
-                .orElseThrow(NotFoundProjectException::new);
-
-        setTask(task, dto, project, memberSeq);
-        setTaskTag(dto.getTags(), task);
-        setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
-        setMemberTask(task, projectSeq, dto.getReferences(), MemberTaskType.REFERENCE);
-    }
-
-    public void deleteTask(Long memberSeq, Long projectSeq, Long taskSeq) {
-        authorizedCheck(memberSeq, projectSeq, taskSeq);
-
-        if (!taskRepository.existsById(taskSeq)) {
-            throw new NotFoundTaskException();
-        }
-        taskRepository.deleteById(taskSeq);
-    }
-
-    private void setTaskTag(Set<Long> tags, Task task) {
-        for (Long tagSeq : tags) {
+        for (Long tagSeq : dto.getTags()) {
             Tag tag = tagRepository.findById(tagSeq)
                     .orElseThrow(NotFoundTagException::new);
             TaskTag taskTag = TaskTag.builder()
                     .tag(tag)
                     .task(task)
                     .build();
-            taskTagRepository.save(taskTag);
+            taskTagRepository.saveAndFlush(taskTag);
         }
+
+        setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
+        setMemberTask(task, projectSeq, dto.getReferences(), MemberTaskType.REFERENCE);
+    }
+
+    @Transactional
+    public void deleteTask(Long taskSeq) {
+        taskRepository.deleteById(taskSeq);
+    }
+    @Transactional
+    public boolean authorizedCheckTaskSeqAndProjectSeq(Long taskSeq, Long projectSeq) {
+        return taskRepository.existsBySeqAndProjectSeq(taskSeq, projectSeq);
     }
 
     private void setMemberTask(Task task, Long projectSeq, Set<Long> members, MemberTaskType type) {
@@ -127,42 +112,6 @@ public class TaskServiceImpl implements TaskService {
                     .type(type)
                     .task(task).build();
             memberTaskRepository.save(memberTask);
-        }
-    }
-
-    private void setTask(Task task, RequestTaskDto dto, Project project, Long memberSeq) {
-        Milestone milestone = milestoneRepository.findById(dto.getMilestoneSeq())
-                .orElseThrow(NotFoundMilestoneException::new);
-        Priority priority = priorityRepository.findById(dto.getPrioritySeq())
-                .orElseThrow(NotFoundProjectException::new);
-        Member member = memberRepository.findById(memberSeq)
-                .orElseThrow(NotFoundMemberException::new);
-        TaskPeriod taskPeriod = TaskPeriod.builder().registeredDate(LocalDate.now()).build();
-
-
-        task.setTitle(dto.getTitle());
-        task.setContent(dto.getContent());
-        task.setUploadFile(dto.getUploadFile());
-        task.setTaskPeriod(taskPeriod);
-        task.setProject(project);
-        task.setMilestone(milestone);
-        task.setPriority(priority);
-        task.setRegistrant(member);
-    }
-
-    private void authorizedCheck(Long memberSeq, Long projectSeq, Long taskSeq) {
-        authorizedCheck(memberSeq, projectSeq);
-        if (taskSeq == null) {
-            throw new NullPointerException("taskSeq 가 널 입니다.");
-        }
-        if (!taskRepository.existsBySeqAndProjectSeq(taskSeq, projectSeq)) {
-            throw new UnauthorizedException();
-        }
-    }
-
-    private void authorizedCheck(Long memberSeq, Long projectSeq) {
-        if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq)) {
-            throw new UnauthorizedException();
         }
     }
 }

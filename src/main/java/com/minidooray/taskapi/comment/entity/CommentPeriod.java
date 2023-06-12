@@ -23,7 +23,7 @@ public class CommentPeriod {
     private LocalDate lastUpdateDate;
 
 //    @PrePersist
-//    public LocalDate getRecentDate() {
-//        return Objects.isNull(lastUpdateDate) ? registeredDate : lastUpdateDate;
+//    public String getRecentDate() {
+//        return Objects.isNull(lastUpdateDate) ? String.valueOf(registeredDate) : lastUpdateDate + " 수정됨.";
 //    }
 }

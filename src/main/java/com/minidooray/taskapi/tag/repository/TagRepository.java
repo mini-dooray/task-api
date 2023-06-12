@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
-    ResponseTagDto findResponseTagDtoBySeqAndProjectSeq(Long tagSeq, Long projectSeq);
+    ResponseTagDto findBySeq(Long tagSeq);
 
     List<ResponseTagDto> findAllByProjectSeq(Long tagSeq);
 

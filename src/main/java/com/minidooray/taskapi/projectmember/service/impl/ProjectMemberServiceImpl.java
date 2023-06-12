@@ -9,7 +9,6 @@ import com.minidooray.taskapi.project.repository.ProjectRepository;
 import com.minidooray.taskapi.projectmember.entity.ProjectMember;
 import com.minidooray.taskapi.projectmember.entity.ProjectMemberAuthority;
 import com.minidooray.taskapi.projectmember.exception.DuplicateMemberProjectException;
-import com.minidooray.taskapi.projectmember.exception.UnauthorizedException;
 import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
 import com.minidooray.taskapi.projectmember.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +30,10 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
     }
 
     @Transactional
-    public void addMember(Long memberSeq, Long projectSeq, Long adminSeq) {
-        if (projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq)) {
+    public void addMember(Long memberSeq, Long projectSeq) {
+        if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq)) {
             throw new DuplicateMemberProjectException();
         }
-        authorizationCheck(projectSeq, adminSeq);
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
         Member member = memberRepository.findById(memberSeq)
@@ -50,22 +48,23 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
     }
 
     @Transactional
-    public void updateAuthority(Long memberSeq, Long projectSeq, Long adminSeq, ProjectMemberAuthority authority) {
-        authorizationCheck(projectSeq, adminSeq);
+    public void updateAuthority(Long memberSeq, Long projectSeq, ProjectMemberAuthority authority) {
         ProjectMember projectMember = projectMemberRepository.findByMemberSeqAndProjectSeq(memberSeq, projectSeq);
         projectMember.updateAuthority(authority);
     }
 
     @Transactional
-    public void deleteProjectMember(Long memberSeq, Long projectSeq, Long adminSeq) {
-        authorizationCheck(projectSeq, adminSeq);
+    public void deleteProjectMember(Long memberSeq, Long projectSeq) {
         projectMemberRepository.deleteByMemberSeqAndProjectSeq(memberSeq, projectSeq);
     }
 
-    private void authorizationCheck(Long projectSeq, Long adminSeq) {
+    @Transactional
+    public boolean authorizationCheckMemberIsAdmin(Long projectSeq, Long adminSeq) {
         ProjectMember projectMember = projectMemberRepository.findByMemberSeqAndProjectSeq(adminSeq, projectSeq);
-        if (projectMember == null || !projectMember.getAuthority().equals(ProjectMemberAuthority.ADMIN)) {
-            throw new UnauthorizedException();
-        }
+        return !(projectMember == null || !projectMember.getAuthority().equals(ProjectMemberAuthority.ADMIN));
+    }
+    @Transactional
+    public boolean authorizationCheckMemberSeqAndProjectSeq(Long memberSeq, Long projectSeq){
+        return projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq,projectSeq);
     }
 }

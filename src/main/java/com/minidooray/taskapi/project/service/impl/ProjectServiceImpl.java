@@ -13,7 +13,6 @@ import com.minidooray.taskapi.project.repository.ProjectRepository;
 import com.minidooray.taskapi.project.service.ProjectService;
 import com.minidooray.taskapi.projectmember.entity.ProjectMember;
 import com.minidooray.taskapi.projectmember.entity.ProjectMemberAuthority;
-import com.minidooray.taskapi.projectmember.exception.UnauthorizedException;
 import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
-    public ResponseProjectDto getProject(Long projectSeq, Long memberSeq) {
-        authorizedCheck(projectSeq, memberSeq);
+    public ResponseProjectDto getProject(Long projectSeq) {
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
         return createResponseProjectDtoByEntity(project);
@@ -57,8 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Transactional
-    public ResponseProjectDto updateProject(Long projectSeq, Long memberSeq, RequestUpdateProjectDto dto) {
-        authorizedCheck(projectSeq, memberSeq);
+    public ResponseProjectDto updateProject(Long projectSeq, RequestUpdateProjectDto dto) {
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
         project.modifyProjectBYDto(dto);
@@ -66,23 +63,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Transactional
-    public void deleteProject(Long projectSeq, Long memberSeq) {
+    public void deleteProject(Long projectSeq) {
         if (!projectRepository.existsById(projectSeq)) {
             throw new NotFoundProjectException();
         }
-        authorizedCheck(projectSeq, memberSeq);
         projectRepository.deleteById(projectSeq);
     }
 
-    private void authorizedCheck(Long projectSeq, Long memberSeq) {
-        if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq)) {
-            throw new UnauthorizedException();
-        }
+    @Transactional
+    public boolean authorizationCheckProjectSeqAndMemberSeq(Long projectSeq, Long memberSeq) {
+        return projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq);
     }
 
-//    @Transactional(readOnly = true)
-//    public List<ResponseTaskListDto> getTaskList(Long seq) {
-//        return projectRepository.findAllBySeq(seq);
-//    }
-
+    @Transactional
+    public boolean checkDuplicateName(String projectName) {
+        return projectRepository.existsByName(projectName);
+    }
 }
