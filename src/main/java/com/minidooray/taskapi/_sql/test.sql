@@ -24,7 +24,7 @@ CREATE TABLE `comment`
 (
     `comment_seq`      bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `task_seq`         bigint       NOT NULL,
-    `writer_seq`      bigint       NOT NULL,
+    `writer_seq`       bigint       NOT NULL,
     `content`          VARCHAR(200) NOT NULL,
     `registered_date`  date         NOT NULL,
     `last_update_date` date         NULL

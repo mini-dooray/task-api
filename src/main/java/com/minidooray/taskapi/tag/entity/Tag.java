@@ -1,12 +1,14 @@
 package com.minidooray.taskapi.tag.entity;
 
 import com.minidooray.taskapi.project.entity.Project;
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tag")
+@Getter
 @Setter
 public class Tag {
     @Id

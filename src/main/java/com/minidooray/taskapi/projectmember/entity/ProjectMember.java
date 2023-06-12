@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NamedEntityGraph(name = "ProjectMember.withProjectAndMember", attributeNodes = {
+        @NamedAttributeNode("project"),
+        @NamedAttributeNode("member")
+})
 @Entity
 @Table(name = "project_member")
 @Getter
@@ -37,7 +41,8 @@ public class ProjectMember {
         this.member = member;
         this.authority = authority;
     }
-    public void updateAuthority(ProjectMemberAuthority authority){
+
+    public void updateAuthority(ProjectMemberAuthority authority) {
         this.authority = authority;
     }
 }

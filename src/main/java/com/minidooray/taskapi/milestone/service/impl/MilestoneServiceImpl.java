@@ -5,13 +5,14 @@ import com.minidooray.taskapi.milestone.dto.response.ResponseMilestoneDto;
 import com.minidooray.taskapi.milestone.dto.response.ResponseMilestoneListDto;
 import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.milestone.entity.MilestonePeriod;
-import com.minidooray.taskapi.milestone.exception.NotFoundMilestoneException;
+import com.minidooray.taskapi.milestone.exception.MilestoneNotBelongToProjectException;
 import com.minidooray.taskapi.milestone.repository.MilestoneRepository;
 import com.minidooray.taskapi.milestone.service.MilestoneService;
 import com.minidooray.taskapi.project.repository.ProjectRepository;
 import com.minidooray.taskapi.projectmember.exception.UnauthorizedException;
 import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
-import com.minidooray.taskapi.tag.exception.TagNotBelongToProjectException;
+import com.minidooray.taskapi.task.entity.Task;
+import com.minidooray.taskapi.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,8 @@ public class MilestoneServiceImpl implements MilestoneService {
     private final ProjectMemberRepository projectMemberRepository;
     private final ProjectRepository projectRepository;
 
+    private final TaskRepository taskRepository;
+
     @Transactional
     public void createMilestone(Long memberSeq, Long projectSeq, RequestMilestoneDto dto) {
         authorizedCheck(memberSeq, projectSeq);
@@ -40,16 +43,17 @@ public class MilestoneServiceImpl implements MilestoneService {
 
     @Transactional
     public void updateMilestone(Long milestoneSeq, Long memberSeq, Long projectSeq, RequestMilestoneDto dto) {
-        authorizedCheck(milestoneSeq, memberSeq, projectSeq);
-        Milestone milestone = milestoneRepository.findById(milestoneSeq)
-                .orElseThrow(NotFoundMilestoneException::new);
+        authorizedCheck(memberSeq, projectSeq);
+        Milestone milestone = milestoneRepository.findMilestoneBySeqAndProjectSeq(milestoneSeq, projectSeq)
+                .orElseThrow(() -> new MilestoneNotBelongToProjectException(milestoneSeq, projectSeq));
         milestone.updateMilestoneByDto(dto);
     }
 
     @Transactional(readOnly = true)
     public ResponseMilestoneDto getMilestone(Long milestoneSeq, Long memberSeq, Long projectSeq) {
-        authorizedCheck(milestoneSeq, memberSeq, projectSeq);
-        return milestoneRepository.findBySeq(milestoneSeq);
+        authorizedCheck(memberSeq, projectSeq);
+        return milestoneRepository.findBySeqAndProjectSeq(milestoneSeq, projectSeq)
+                .orElseThrow(() -> new MilestoneNotBelongToProjectException(milestoneSeq, projectSeq));
     }
 
     @Transactional(readOnly = true)
@@ -60,15 +64,12 @@ public class MilestoneServiceImpl implements MilestoneService {
 
     @Transactional
     public void deleteMilestone(Long milestoneSeq, Long memberSeq, Long projectSeq) {
-        authorizedCheck(milestoneSeq, memberSeq, projectSeq);
-        milestoneRepository.deleteById(milestoneSeq);
-    }
-
-    private void authorizedCheck(Long milestoneSeq, Long memberSeq, Long projectSeq) {
         authorizedCheck(memberSeq, projectSeq);
-        if (!milestoneRepository.existsBySeqAndProjectSeq(milestoneSeq, projectSeq)) {
-            throw new TagNotBelongToProjectException(milestoneSeq, projectSeq);
+        List<Task> tasks = taskRepository.findByMilestoneSeq(milestoneSeq);
+        for (Task task : tasks) {
+            task.setMilestone(null);
         }
+        milestoneRepository.deleteBySeqAndProjectSeq(milestoneSeq, projectSeq);
     }
 
     private void authorizedCheck(Long memberSeq, Long projectSeq) {

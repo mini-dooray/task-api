@@ -31,6 +31,6 @@ public class MemberController {
     @DeleteMapping("/{memberSeq}")
     public ResponseEntity<Void> deleteMember(@PathVariable Long memberSeq) {
         memberService.deleteMember(memberSeq);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

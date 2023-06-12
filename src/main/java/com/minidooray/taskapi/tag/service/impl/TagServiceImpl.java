@@ -6,7 +6,6 @@ import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
 import com.minidooray.taskapi.tag.dto.request.RequestTagDto;
 import com.minidooray.taskapi.tag.dto.response.ResponseTagDto;
 import com.minidooray.taskapi.tag.entity.Tag;
-import com.minidooray.taskapi.tag.exception.NotFoundTagException;
 import com.minidooray.taskapi.tag.exception.TagNotBelongToProjectException;
 import com.minidooray.taskapi.tag.repository.TagRepository;
 import com.minidooray.taskapi.tag.service.TagService;
@@ -31,17 +30,19 @@ public class TagServiceImpl implements TagService {
         tag.setProject(projectRepository.getReferenceById(projectSeq));
         tagRepository.save(tag);
     }
+
     @Transactional
     public void updateTag(Long tagSeq, Long memberSeq, Long projectSeq, RequestTagDto dto) {
-        authorizedCheck(tagSeq, memberSeq, projectSeq);
-        Tag tag = tagRepository.findById(tagSeq)
-                .orElseThrow(NotFoundTagException::new);
+        authorizedCheck(memberSeq, projectSeq);
+        Tag tag = tagRepository.findBySeqAndProjectSeq(tagSeq, projectSeq)
+                .orElseThrow(() -> new TagNotBelongToProjectException(tagSeq, projectSeq));
         tag.setName(dto.getName());
     }
+
     @Transactional(readOnly = true)
     public ResponseTagDto getTag(Long tagSeq, Long memberSeq, Long projectSeq) {
-        authorizedCheck(tagSeq, memberSeq, projectSeq);
-        return tagRepository.findBySeq(tagSeq);
+        authorizedCheck(memberSeq, projectSeq);
+        return tagRepository.findResponseTagDtoBySeqAndProjectSeq(tagSeq, projectSeq);
     }
 
     @Transactional(readOnly = true)
@@ -52,15 +53,8 @@ public class TagServiceImpl implements TagService {
 
     @Transactional
     public void deleteTag(Long tagSeq, Long memberSeq, Long projectSeq) {
-        authorizedCheck(tagSeq, memberSeq, projectSeq);
-        tagRepository.deleteById(tagSeq);
-    }
-
-    private void authorizedCheck(Long tagSeq, Long memberSeq, Long projectSeq) {
         authorizedCheck(memberSeq, projectSeq);
-        if (!tagRepository.existsBySeqAndProjectSeq(tagSeq, projectSeq)) {
-            throw new TagNotBelongToProjectException(tagSeq, projectSeq);
-        }
+        tagRepository.deleteBySeqAndProjectSeq(tagSeq, projectSeq);
     }
 
     private void authorizedCheck(Long memberSeq, Long projectSeq) {

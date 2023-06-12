@@ -65,13 +65,12 @@ public class ProjectServiceImpl implements ProjectService {
         return createResponseProjectDtoByEntity(project);
     }
 
-    //TODO : JPQL 로 만들기.
     @Transactional
     public void deleteProject(Long projectSeq, Long memberSeq) {
-        authorizedCheck(projectSeq, memberSeq);
         if (!projectRepository.existsById(projectSeq)) {
             throw new NotFoundProjectException();
         }
+        authorizedCheck(projectSeq, memberSeq);
         projectRepository.deleteById(projectSeq);
     }
 

@@ -1,1 +1,4 @@
+com/minidooray/taskapi/member/controller/MemberControllerTest.class
 com/minidooray/taskapi/TaskApiApplicationTests.class
+com/minidooray/taskapi/member/repository/MemberRepositoryTest.class
+com/minidooray/taskapi/member/service/MemberServiceTest.class

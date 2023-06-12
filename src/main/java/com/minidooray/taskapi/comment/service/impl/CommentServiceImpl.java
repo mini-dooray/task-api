@@ -220,7 +220,6 @@ public class CommentServiceImpl extends QuerydslRepositorySupport implements Com
 
 
     private void setComment(Comment comment, RequestCommentDto dto, Task task, Long memberSeq) {
-
 //        task.setTitle(dto.getTitle());
 //        task.setContent(dto.getContent());
 //        task.setUploadFile(dto.getUploadFile());

@@ -16,6 +16,7 @@ import com.minidooray.taskapi.project.exception.NotFoundProjectException;
 import com.minidooray.taskapi.project.repository.ProjectRepository;
 import com.minidooray.taskapi.projectmember.exception.UnauthorizedException;
 import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
+import com.minidooray.taskapi.tag.entity.Tag;
 import com.minidooray.taskapi.tag.exception.NotFoundTagException;
 import com.minidooray.taskapi.tag.repository.TagRepository;
 import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
@@ -26,6 +27,8 @@ import com.minidooray.taskapi.task.entity.TaskPeriod;
 import com.minidooray.taskapi.task.exception.NotFoundTaskException;
 import com.minidooray.taskapi.task.repository.TaskRepository;
 import com.minidooray.taskapi.task.service.TaskService;
+import com.minidooray.taskapi.tasktag.entity.TaskTag;
+import com.minidooray.taskapi.tasktag.repository.TaskTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,8 +49,8 @@ public class TaskServiceImpl implements TaskService {
     private final MemberTaskRepository memberTaskRepository;
 
     private final ProjectMemberRepository projectMemberRepository;
-
     private final TagRepository tagRepository;
+    private final TaskTagRepository taskTagRepository;
 
     // TODO : JPQL 만들기
     @Transactional(readOnly = true)
@@ -70,13 +73,10 @@ public class TaskServiceImpl implements TaskService {
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(NotFoundProjectException::new);
         setTask(task, dto, project, memberSeq);
-        for (Long tag : dto.getTags()) {
-            tagRepository.findById(tag)
-                    .orElseThrow(NotFoundTagException::new);
-        }
+        setTaskTag(dto.getTags(), task);
         taskRepository.saveAndFlush(task);
-        setMemberTask(task,projectSeq,dto.getManagers(),MemberTaskType.MANAGER);
-        setMemberTask(task,projectSeq,dto.getReferences(),MemberTaskType.REFERENCE);
+        setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
+        setMemberTask(task, projectSeq, dto.getReferences(), MemberTaskType.REFERENCE);
     }
 
     public void updateTask(Long taskSeq, Long projectSeq, Long memberSeq, RequestTaskDto dto) {
@@ -89,9 +89,9 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(NotFoundProjectException::new);
 
         setTask(task, dto, project, memberSeq);
-
-        setMemberTask(task,projectSeq,dto.getManagers(),MemberTaskType.MANAGER);
-        setMemberTask(task,projectSeq,dto.getReferences(),MemberTaskType.REFERENCE);
+        setTaskTag(dto.getTags(), task);
+        setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
+        setMemberTask(task, projectSeq, dto.getReferences(), MemberTaskType.REFERENCE);
     }
 
     public void deleteTask(Long memberSeq, Long projectSeq, Long taskSeq) {
@@ -103,7 +103,19 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.deleteById(taskSeq);
     }
 
-    private void setMemberTask(Task task, Long projectSeq,Set<Long> members,MemberTaskType type) {
+    private void setTaskTag(Set<Long> tags, Task task) {
+        for (Long tagSeq : tags) {
+            Tag tag = tagRepository.findById(tagSeq)
+                    .orElseThrow(NotFoundTagException::new);
+            TaskTag taskTag = TaskTag.builder()
+                    .tag(tag)
+                    .task(task)
+                    .build();
+            taskTagRepository.save(taskTag);
+        }
+    }
+
+    private void setMemberTask(Task task, Long projectSeq, Set<Long> members, MemberTaskType type) {
         for (Long member : members) {
             if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(member, projectSeq)) {
                 throw new UnauthorizedException();
@@ -125,10 +137,12 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(NotFoundProjectException::new);
         Member member = memberRepository.findById(memberSeq)
                 .orElseThrow(NotFoundMemberException::new);
+        TaskPeriod taskPeriod = TaskPeriod.builder().registeredDate(LocalDate.now()).build();
+
+
         task.setTitle(dto.getTitle());
         task.setContent(dto.getContent());
         task.setUploadFile(dto.getUploadFile());
-        TaskPeriod taskPeriod = TaskPeriod.builder().registeredDate(LocalDate.now()).build();
         task.setTaskPeriod(taskPeriod);
         task.setProject(project);
         task.setMilestone(milestone);

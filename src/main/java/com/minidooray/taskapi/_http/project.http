@@ -1,9 +1,10 @@
 ### project 추가
-#Hibernate: select project0_.project_seq as project_1_5_0_, project0_.content as content2_5_0_, project0_.name as name3_5_0_, project0_.status as status4_5_0_ from project project0_ where project0_.project_seq=?
+#Hibernate: insert into project (content, name, status) values (?, ?, ?)
+#Hibernate: select member0_.member_seq as member_s1_1_0_, member0_.name as name2_1_0_ from member member0_ where member0_.member_seq=?
+#Hibernate: insert into project_member (authority, member_seq, project_seq) values (?, ?, ?)
 POST /project?memberSeq=1
 Content-Type: application/json
 Host: localhost:8002
-
 {
   "name" : "project",
   "content" : "content",
@@ -17,7 +18,7 @@ Host: localhost:8002
 #Hibernate: select projectmem0_.project_seq as project_4_6_0_, projectmem0_.project_member_seq as project_1_6_0_, projectmem0_.project_member_seq as project_1_6_1_, projectmem0_.authority as authorit2_6_1_, projectmem0_.member_seq as member_s3_6_1_, projectmem0_.project_seq as project_4_6_1_, member1_.member_seq as member_s1_1_2_, member1_.name as name2_1_2_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq where projectmem0_.project_seq=?
 #Hibernate: delete from project_member where project_member_seq=?
 #Hibernate: delete from project where project_seq=?
-DELETE /project/6?memberSeq=1
+DELETE /project/7?memberSeq=1
 Content-Type: application/json
 Host: localhost:8002
 

@@ -6,7 +6,6 @@ import com.minidooray.taskapi.membertask.entitiy.MemberTask;
 import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.priority.entity.Priority;
 import com.minidooray.taskapi.project.entity.Project;
-import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.tasktag.entity.TaskTag;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +15,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedEntityGraph(name = "Task.withMemberTasks", attributeNodes = @NamedAttributeNode("memberTasks"))
 @Entity
 @Table(name = "task")
 @Getter
@@ -34,29 +34,29 @@ public class Task {
     @Embedded
     private TaskPeriod taskPeriod;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_seq")
     private Project project;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_seq")
     private Milestone milestone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "priority_seq")
     private Priority priority;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "registrant_seq", referencedColumnName = "member_seq")
     private Member registrant;
 
-    @OneToMany(mappedBy = "task",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
     private List<MemberTask> memberTasks;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
     private List<TaskTag> taskTags;
 
-    @OneToMany(mappedBy = "task",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     @Builder

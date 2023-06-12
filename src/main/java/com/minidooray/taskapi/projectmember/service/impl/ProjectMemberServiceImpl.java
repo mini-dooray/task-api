@@ -36,9 +36,16 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
             throw new DuplicateMemberProjectException();
         }
         authorizationCheck(projectSeq, adminSeq);
-        Project project = projectRepository.findById(projectSeq).orElseThrow(NotFoundProjectException::new);
-        Member member = memberRepository.findById(memberSeq).orElseThrow(NotFoundMemberException::new);
-        ProjectMember build = ProjectMember.builder().project(project).member(member).authority(ProjectMemberAuthority.MEMBER).build();
+        Project project = projectRepository.findById(projectSeq)
+                .orElseThrow(NotFoundProjectException::new);
+        Member member = memberRepository.findById(memberSeq)
+                .orElseThrow(NotFoundMemberException::new);
+
+        ProjectMember build = ProjectMember.builder()
+                .project(project)
+                .member(member)
+                .authority(ProjectMemberAuthority.MEMBER)
+                .build();
         projectMemberRepository.save(build);
     }
 

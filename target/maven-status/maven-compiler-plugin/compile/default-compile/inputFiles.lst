@@ -1,3 +1,4 @@
+/Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/projectmember/dto/request/RequestProjectMemberCreateDto.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/project/dto/response/ResponseProjectListDto.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/tag/repository/TagRepository.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/tag/service/impl/TagServiceImpl.java
@@ -42,6 +43,7 @@
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/comment/repository/CommentRepository.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/project/dto/response/ResponseProjectDto.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/task/service/TaskService.java
+/Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/milestone/exception/MilestoneNotBelongToProjectException.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/advice/ErrorResponse.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/comment/entity/CommentPeriod.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/priority/entity/Priority.java
@@ -66,7 +68,9 @@
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/project/entity/ProjectStatus.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/member/entity/Member.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/TaskApiApplication.java
+/Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/projectmember/exception/DuplicateMemberProjectException.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/tag/entity/Tag.java
+/Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/projectmember/dto/request/RequestProjectMemberDto.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/membertask/entitiy/MemberTask.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/milestone/dto/response/ResponseMilestoneDto.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/milestone/repository/MilestoneRepository.java

@@ -6,11 +6,15 @@ import com.minidooray.taskapi.milestone.entity.Milestone;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface MilestoneRepository extends JpaRepository<Milestone,Long> {
+public interface MilestoneRepository extends JpaRepository<Milestone, Long> {
 
-    boolean existsBySeqAndProjectSeq(Long tagSeq, Long projectSeq);
-
-    ResponseMilestoneDto findBySeq(Long milestoneSeq);
     List<ResponseMilestoneListDto> findAllByProjectSeq(Long projectSeq);
+
+    Optional<ResponseMilestoneDto> findBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
+
+    Optional<Milestone> findMilestoneBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
+
+    void deleteBySeqAndProjectSeq(Long milestoneSeq, Long projectSeq);
 }

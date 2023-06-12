@@ -1,11 +1,7 @@
 package com.minidooray.taskapi.projectmember.dto.response;
 
+import com.minidooray.taskapi.member.entity.Member;
+
 public interface ResponseProjectMemberDto {
-    MemberDto getMember();
-
-    interface MemberDto {
-        Long getSeq();
-
-        String getName();
-    }
+    Member getMember();
 }

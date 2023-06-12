@@ -20,7 +20,7 @@ public class ProjectMemberController {
 
     @GetMapping("/members")
     public ResponseEntity<List<Member>> getMembers(@PathVariable Long projectSeq) {
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(projectMemberService.getMemberByProjectSeq(projectSeq));
     }
 
