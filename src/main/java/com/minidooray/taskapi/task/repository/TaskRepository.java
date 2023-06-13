@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositoryCustom {
     @EntityGraph(value = "Task.withAllManyToOne", type = EntityGraph.EntityGraphType.LOAD)
     ResponseTaskDto findBySeq(Long seq);
 
     boolean existsBySeqAndProjectSeq(Long taskSeq, Long projectSeq);
+
+    List<Task> findByMilestoneSeq(Long milestoneSeq);
 
     @EntityGraph(value = "Task.withMemberTasks", type = EntityGraph.EntityGraphType.LOAD)
     List<ResponseTaskListDto> findByProjectSeq(Long projectSeq);

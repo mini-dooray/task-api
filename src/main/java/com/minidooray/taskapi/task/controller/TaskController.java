@@ -3,6 +3,7 @@ package com.minidooray.taskapi.task.controller;
 import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskListDto;
+import com.minidooray.taskapi.task.dto.response.ResponseTaskStatusListDto;
 import com.minidooray.taskapi.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,12 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
 
+    @GetMapping("/tasksStatus")
+    public ResponseEntity<List<ResponseTaskStatusListDto>> getTasksStatus(@RequestParam Long projectSeq) {
+        List<ResponseTaskStatusListDto> tasks = taskService.getTasksStatus(projectSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(tasks);
+    }
+
     @PostMapping("/member/{memberSeq}")
     public ResponseEntity<Void> createTask(@RequestBody RequestTaskDto dto, @PathVariable Long memberSeq, @RequestParam Long projectSeq) {
         taskService.createTask(dto, projectSeq, memberSeq);
@@ -48,4 +55,5 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(taskService.authorizedCheckTaskSeqAndProjectSeq(taskSeq, projectSeq));
     }
+
 }

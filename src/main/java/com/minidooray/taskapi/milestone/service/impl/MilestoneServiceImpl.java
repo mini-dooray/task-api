@@ -10,6 +10,8 @@ import com.minidooray.taskapi.milestone.repository.MilestoneRepository;
 import com.minidooray.taskapi.milestone.service.MilestoneService;
 import com.minidooray.taskapi.project.exception.NotFoundProjectException;
 import com.minidooray.taskapi.project.repository.ProjectRepository;
+import com.minidooray.taskapi.task.entity.Task;
+import com.minidooray.taskapi.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ public class MilestoneServiceImpl implements MilestoneService {
 
     private final MilestoneRepository milestoneRepository;
     private final ProjectRepository projectRepository;
+    private final TaskRepository taskRepository;
 
 
     public void createMilestone(Long projectSeq, RequestMilestoneDto dto) {
@@ -54,10 +57,14 @@ public class MilestoneServiceImpl implements MilestoneService {
     }
 
     public void deleteMilestone(Long milestoneSeq) {
-//        List<Task> tasks = taskRepository.findByMilestoneSeq(milestoneSeq);
+        List<Task> tasks = taskRepository.findByMilestoneSeq(milestoneSeq);
+        for (Task task : tasks) {
+            task.removeMilestone();
+        }
         milestoneRepository.deleteById(milestoneSeq);
     }
-    public boolean checkDuplicateName(String name){
+
+    public boolean checkDuplicateName(String name) {
         return milestoneRepository.existsByName(name);
     }
 }

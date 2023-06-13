@@ -1,14 +1,14 @@
-drop database taskdb;
-create database taskdb;
-use taskdb;
-
+# drop database taskdb;
+# create database taskdb;
+# use taskdb;
+# SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `task`;
 
 CREATE TABLE `task`
 (
     `task_seq`         bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `project_seq`      bigint       NOT NULL,
-    `milestone_seq`    bigint       NOT NULL,
+    `milestone_seq`    bigint       ,
     `priority_seq`     bigint       NOT NULL,
     `registrant_seq`   bigint       NOT NULL,
     `title`            VARCHAR(100) NOT NULL,
@@ -203,3 +203,10 @@ VALUES (1, 1, 1, 0),
        (3, 2, 3, 0),
        (4, 3, 4, 1),
        (5, 4, 5, 0);
+
+
+select p.name , count(p.name) from task
+inner join priority p on task.priority_seq = p.priority_seq
+inner join project p2 on task.project_seq = p2.project_seq
+where p2.project_seq = 1
+group by p.name;

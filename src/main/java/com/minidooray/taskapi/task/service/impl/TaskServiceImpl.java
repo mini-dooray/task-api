@@ -22,6 +22,7 @@ import com.minidooray.taskapi.tag.repository.TagRepository;
 import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskListDto;
+import com.minidooray.taskapi.task.dto.response.ResponseTaskStatusListDto;
 import com.minidooray.taskapi.task.entity.Task;
 import com.minidooray.taskapi.task.repository.TaskRepository;
 import com.minidooray.taskapi.task.service.TaskService;
@@ -99,6 +100,11 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public boolean authorizedCheckTaskSeqAndProjectSeq(Long taskSeq, Long projectSeq) {
         return taskRepository.existsBySeqAndProjectSeq(taskSeq, projectSeq);
+    }
+
+    @Transactional
+    public List<ResponseTaskStatusListDto> getTasksStatus(Long projectSeq) {
+        return taskRepository.findProjectPriorityByProjectSeq(projectSeq);
     }
 
     private void setMemberTask(Task task, Long projectSeq, Set<Long> members, MemberTaskType type) {

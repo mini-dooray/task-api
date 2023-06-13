@@ -11,6 +11,7 @@ public interface ResponseTaskListDto {
     String getTitle();
 
     List<MemberTaskDto> getMemberTasks();
+
     interface MemberTaskDto {
 
         MemberTaskType getType();

@@ -22,7 +22,8 @@ import java.util.List;
         @NamedAttributeNode("priority"),
         @NamedAttributeNode("registrant")
 })
-@NamedEntityGraph(name = "Task.withMemberTasks", attributeNodes = @NamedAttributeNode("memberTasks"))
+@NamedEntityGraph(name = "Task.withMemberTasks", attributeNodes =
+@NamedAttributeNode("memberTasks"))
 @Entity
 @Table(name = "task")
 @Getter
@@ -56,13 +57,13 @@ public class Task {
     @JoinColumn(name = "registrant_seq", referencedColumnName = "member_seq")
     private Member registrant;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<MemberTask> memberTasks;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TaskTag> taskTags;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments;
 
     @Builder
@@ -90,5 +91,9 @@ public class Task {
         this.milestone = milestone;
         this.priority = priority;
         this.registrant = member;
+    }
+
+    public void removeMilestone() {
+        this.milestone = null;
     }
 }
