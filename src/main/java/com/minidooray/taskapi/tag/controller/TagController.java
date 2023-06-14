@@ -30,9 +30,9 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createTag(@RequestBody RequestTagDto dto, @RequestParam Long projectSeq) {
+    public ResponseEntity<Void> createTag(@Valid @RequestBody RequestTagDto dto, @RequestParam Long projectSeq) {
         tagService.createTag(projectSeq, dto);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{tagSeq}")
@@ -44,7 +44,7 @@ public class TagController {
     @DeleteMapping("/{tagSeq}")
     public ResponseEntity<Void> deleteTag(@PathVariable Long tagSeq) {
         tagService.deleteTag(tagSeq);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/name")
