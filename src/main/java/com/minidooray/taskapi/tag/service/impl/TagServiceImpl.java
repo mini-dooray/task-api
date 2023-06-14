@@ -23,16 +23,17 @@ public class TagServiceImpl implements TagService {
     private final TaskTagRepository taskTagRepository;
 
     public void createTag(Long projectSeq, RequestTagDto dto) {
-        Tag tag = new Tag();
-        tag.setName(dto.getName());
-        tag.setProject(projectRepository.getReferenceById(projectSeq));
+        Tag tag = Tag.builder()
+                .name(dto.getName())
+                .project(projectRepository.getReferenceById(projectSeq))
+                .build();
         tagRepository.save(tag);
     }
 
     public void updateTag(Long tagSeq, RequestTagDto dto) {
         Tag tag = tagRepository.findById(tagSeq)
                 .orElseThrow(NotFoundTagException::new);
-        tag.setName(dto.getName());
+        tag.updateTagName(dto.getName());
     }
 
     @Transactional(readOnly = true)

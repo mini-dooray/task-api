@@ -1,5 +1,6 @@
 package com.minidooray.taskapi.priority.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -16,4 +17,9 @@ public class Priority {
     @Column(name = "name")
     @Enumerated(EnumType.ORDINAL)
     private PriorityStatus priorityStatus;
+
+    @Builder
+    public Priority(PriorityStatus priorityStatus) {
+        this.priorityStatus = priorityStatus;
+    }
 }
