@@ -4,6 +4,7 @@ import com.minidooray.taskapi.TestUtils;
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.member.exception.NotFoundMemberException;
 import com.minidooray.taskapi.member.repository.MemberRepository;
+import com.minidooray.taskapi.membertask.repository.MemberTaskRepository;
 import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.milestone.exception.NotFoundMilestoneException;
 import com.minidooray.taskapi.milestone.repository.MilestoneRepository;
@@ -24,6 +25,7 @@ import com.minidooray.taskapi.task.dto.response.ResponseTaskListDto;
 import com.minidooray.taskapi.task.dto.response.ResponseTaskStatusListDto;
 import com.minidooray.taskapi.task.repository.TaskRepository;
 import com.minidooray.taskapi.task.service.impl.TaskServiceImpl;
+import com.minidooray.taskapi.tasktag.repository.TaskTagRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,6 +61,11 @@ class TaskServiceTest {
     private ProjectMemberRepository projectMemberRepository;
     @Mock
     private TagRepository tagRepository;
+    @Mock
+    private TaskTagRepository taskTagRepository;
+    @Mock
+    private MemberTaskRepository memberTaskRepository;
+
     @InjectMocks
     private TaskServiceImpl taskService;
 
@@ -321,7 +329,6 @@ class TaskServiceTest {
                 .thenReturn(Optional.of(tag));
         when(projectMemberRepository.existsByMemberSeqAndProjectSeq(manager.getSeq(), project.getSeq()))
                 .thenReturn(false);
-
         try {
             taskService.createTask(dto, project.getSeq(), member.getSeq());
             //then
