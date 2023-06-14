@@ -11,18 +11,18 @@ public interface ResponseTaskListDto {
 
     List<MemberTaskDto> getMemberTasks();
 
-    MemberTaskDto getRegistrant();
+    MemberDto getRegistrant();
 
     interface MemberTaskDto {
 
         MemberTaskType getType();
 
         MemberDto getMember();
+    }
 
-        interface MemberDto {
-            Long getSeq();
+    interface MemberDto {
+        Long getSeq();
 
-            String getName();
-        }
+        String getName();
     }
 }

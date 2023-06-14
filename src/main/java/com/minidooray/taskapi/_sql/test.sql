@@ -204,10 +204,3 @@ VALUES (1, 1, 1, 0),
        (3, 2, 3, 0),
        (4, 3, 4, 1),
        (5, 4, 5, 0);
-
-
-select p.name , count(p.name) from task
-inner join priority p on task.priority_seq = p.priority_seq
-inner join project p2 on task.project_seq = p2.project_seq
-where p2.project_seq = 1
-group by p.name;
