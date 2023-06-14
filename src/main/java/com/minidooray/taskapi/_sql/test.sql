@@ -8,7 +8,7 @@ CREATE TABLE `task`
 (
     `task_seq`         bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `project_seq`      bigint       NOT NULL,
-    `milestone_seq`    bigint       ,
+    `milestone_seq`    bigint,
     `priority_seq`     bigint       NOT NULL,
     `registrant_seq`   bigint       NOT NULL,
     `title`            VARCHAR(100) NOT NULL,
@@ -17,6 +17,7 @@ CREATE TABLE `task`
     `registered_date`  date         NOT NULL,
     `last_update_date` date         NULL
 );
+
 
 DROP TABLE IF EXISTS `comment`;
 

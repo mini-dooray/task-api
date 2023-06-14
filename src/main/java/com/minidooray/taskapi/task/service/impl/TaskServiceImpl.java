@@ -76,7 +76,7 @@ public class TaskServiceImpl implements TaskService {
 
         task.createTask(dto, project, milestone, priority, member);
 
-        taskRepository.saveAndFlush(task);
+        taskRepository.save(task);
 
         for (Long tagSeq : dto.getTags()) {
             Tag tag = tagRepository.findById(tagSeq)
@@ -85,7 +85,7 @@ public class TaskServiceImpl implements TaskService {
                     .tag(tag)
                     .task(task)
                     .build();
-            taskTagRepository.saveAndFlush(taskTag);
+            taskTagRepository.save(taskTag);
         }
 
         setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);

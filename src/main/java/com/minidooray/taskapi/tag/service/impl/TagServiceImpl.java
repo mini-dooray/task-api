@@ -1,13 +1,13 @@
 package com.minidooray.taskapi.tag.service.impl;
 
 import com.minidooray.taskapi.project.repository.ProjectRepository;
-import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
 import com.minidooray.taskapi.tag.dto.request.RequestTagDto;
 import com.minidooray.taskapi.tag.dto.response.ResponseTagDto;
 import com.minidooray.taskapi.tag.entity.Tag;
 import com.minidooray.taskapi.tag.exception.NotFoundTagException;
 import com.minidooray.taskapi.tag.repository.TagRepository;
 import com.minidooray.taskapi.tag.service.TagService;
+import com.minidooray.taskapi.tasktag.repository.TaskTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TagServiceImpl implements TagService {
     private final TagRepository tagRepository;
-    private final ProjectMemberRepository projectMemberRepository;
     private final ProjectRepository projectRepository;
+    private final TaskTagRepository taskTagRepository;
 
     public void createTag(Long projectSeq, RequestTagDto dto) {
         Tag tag = new Tag();
@@ -46,6 +46,7 @@ public class TagServiceImpl implements TagService {
     }
 
     public void deleteTag(Long tagSeq) {
+        taskTagRepository.deleteByTagSeq(tagSeq);
         tagRepository.deleteById(tagSeq);
     }
 

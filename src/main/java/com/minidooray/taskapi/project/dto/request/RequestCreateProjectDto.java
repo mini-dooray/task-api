@@ -1,15 +1,19 @@
 package com.minidooray.taskapi.project.dto.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class RequestCreateProjectDto {
-    @NotNull
-    @Length(max = 20,message = "프로젝트 이름은 20자를 넘길 수 없습니다.")
+    @NotBlank
+    @Length(max = 20, message = "프로젝트 이름은 20자를 넘길 수 없습니다.")
     private String name;
-    @NotNull
+    @NotBlank
     private String content;
 }

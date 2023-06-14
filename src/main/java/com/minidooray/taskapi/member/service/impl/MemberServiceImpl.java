@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
         if (memberRepository.existsById(dto.getSeq())) {
             throw new DuplicateMemberSeqException();
         }
-        memberRepository.saveAndFlush(new Member(dto.getSeq(), dto.getName()));
+        memberRepository.save(new Member(dto.getSeq(), dto.getName()));
     }
 
     public void updateMemberName(RequestUpdateMemberDto dto, Long memberSeq) {

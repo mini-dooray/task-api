@@ -43,14 +43,20 @@ public interface ResponseTaskDto {
 
     Priority getPriority();
 
-    Member getRegistrant();
+    MemberDto getRegistrant();
+
+    interface MemberDto {
+        Long getSeq();
+
+        String getName();
+    }
 
     List<MemberTaskDto> getMemberTasks();
 
     interface MemberTaskDto {
         Long getSeq();
 
-        Member getMember();
+        MemberDto getMember();
 
         MemberTaskType getType();
     }

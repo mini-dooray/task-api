@@ -1,6 +1,5 @@
 package com.minidooray.taskapi.task.dto.response;
 
-import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.membertask.entitiy.MemberTaskType;
 
 import java.util.List;
@@ -16,6 +15,12 @@ public interface ResponseTaskListDto {
 
         MemberTaskType getType();
 
-        Member getMember();
+        MemberDto getMember();
+
+        interface MemberDto {
+            Long getSeq();
+
+            String getName();
+        }
     }
 }

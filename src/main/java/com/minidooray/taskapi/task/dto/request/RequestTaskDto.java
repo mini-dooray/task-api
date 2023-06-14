@@ -1,16 +1,21 @@
 package com.minidooray.taskapi.task.dto.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class RequestTaskDto {
 
-    @NotNull
+    @NotBlank
     private String title;
-    @NotNull
+    @NotBlank
     private String content;
     private String uploadFile;
     private Long milestoneSeq;

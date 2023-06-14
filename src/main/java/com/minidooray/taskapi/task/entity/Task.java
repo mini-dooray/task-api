@@ -6,6 +6,7 @@ import com.minidooray.taskapi.membertask.entitiy.MemberTask;
 import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.priority.entity.Priority;
 import com.minidooray.taskapi.project.entity.Project;
+import com.minidooray.taskapi.tag.entity.Tag;
 import com.minidooray.taskapi.task.dto.request.RequestTaskDto;
 import com.minidooray.taskapi.tasktag.entity.TaskTag;
 import lombok.Builder;

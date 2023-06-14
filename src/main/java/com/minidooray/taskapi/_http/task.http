@@ -15,7 +15,7 @@ Content-Type: application/json
 Host: localhost:8002
 
 ### taskStatus 전체 조회
-Hibernate: select priority1_.name as col_0_0_, count(priority1_.name) as col_1_0_ from task task0_ inner join priority priority1_ on task0_.priority_seq=priority1_.priority_seq inner join project project2_ on task0_.project_seq=project2_.project_seq where task0_.project_seq=? group by priority1_.name , priority1_.name
+#Hibernate: select priority1_.name as col_0_0_, count(priority1_.name) as col_1_0_ from task task0_ inner join priority priority1_ on task0_.priority_seq=priority1_.priority_seq inner join project project2_ on task0_.project_seq=project2_.project_seq where task0_.project_seq=? group by priority1_.name , priority1_.name
 GET /task/tasksStatus?projectSeq=1
 Content-Type: application/json
 Host: localhost:8002

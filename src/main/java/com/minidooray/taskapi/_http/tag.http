@@ -33,7 +33,7 @@ Host: localhost:8002
 ### tag 삭제
 #Hibernate: select tag0_.tag_seq as tag_seq1_7_0_, tag0_.name as name2_7_0_, tag0_.project_seq as project_3_7_0_, project1_.project_seq as project_1_5_1_, project1_.content as content2_5_1_, project1_.name as name3_5_1_, project1_.status as status4_5_1_ from tag tag0_ left outer join project project1_ on tag0_.project_seq=project1_.project_seq where tag0_.tag_seq=?
 #Hibernate: delete from tag where tag_seq=?
-DELETE /tag/1
+DELETE /tag/4
 Content-Type: application/json
 Host: localhost:8002
 

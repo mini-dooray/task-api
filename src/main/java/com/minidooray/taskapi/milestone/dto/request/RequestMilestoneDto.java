@@ -1,10 +1,14 @@
 package com.minidooray.taskapi.milestone.dto.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class RequestMilestoneDto {
 
     private String name;

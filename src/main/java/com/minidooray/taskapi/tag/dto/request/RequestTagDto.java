@@ -1,11 +1,15 @@
 package com.minidooray.taskapi.tag.dto.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class RequestTagDto {
-    @NotNull
+    @NotBlank
     private String name;
 }

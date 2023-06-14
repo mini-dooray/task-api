@@ -1,10 +1,14 @@
 package com.minidooray.taskapi.member.dto.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class RequestMemberDto {
     @NotNull
     private Long seq;

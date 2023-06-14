@@ -36,7 +36,7 @@ public class MilestoneServiceImpl implements MilestoneService {
                         .orElseThrow(NotFoundProjectException::new))
                 .period(milestonePeriod)
                 .name(dto.getName()).build();
-        milestoneRepository.saveAndFlush(milestone);
+        milestoneRepository.save(milestone);
     }
 
     public void updateMilestone(Long projectSeq, RequestMilestoneDto dto) {
