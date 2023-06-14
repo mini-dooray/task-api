@@ -15,7 +15,6 @@ public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositor
     boolean existsBySeqAndProjectSeq(Long taskSeq, Long projectSeq);
 
     List<Task> findByMilestoneSeq(Long milestoneSeq);
-    List<Task> findByTaskTagsTagSeq(Long tagSeq);
 
     @EntityGraph(value = "Task.withMemberTasks", type = EntityGraph.EntityGraphType.LOAD)
     List<ResponseTaskListDto> findByProjectSeq(Long projectSeq);
