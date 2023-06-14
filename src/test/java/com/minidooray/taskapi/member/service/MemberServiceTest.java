@@ -98,8 +98,6 @@ class MemberServiceTest {
         Long memberSeq = 10L;
         RequestUpdateMemberDto dto = new RequestUpdateMemberDto("test");
 
-        Optional<Member> member = Optional.of(new Member());
-
         //when
         when(memberRepository.findById(memberSeq))
                 .thenReturn(Optional.empty());

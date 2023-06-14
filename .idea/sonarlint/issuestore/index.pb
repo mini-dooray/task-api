@@ -31,10 +31,6 @@ bsrc/main/java/com/minidooray/taskapi/milestone/exception/MilestoneNotBelongToPr
 Lsrc/main/java/com/minidooray/taskapi/tag/exception/NotFoundTagException.java,4/b/4bba8a29ca3a7a0b55e0043b07279acadb675dda
 y
 Isrc/main/java/com/minidooray/taskapi/tag/dto/response/ResponseTagDto.java,c/8/c84c4ed460a92b06d4ed869ae7fc5ec227a76d5a
-n
->src/main/java/com/minidooray/taskapi/advice/ErrorResponse.java,2/e/2e2e51f3fbe16fc4ab2d20ab99fc70b58a96b92f
-w
-Gsrc/main/java/com/minidooray/taskapi/advice/CustomExceptionHandler.java,c/f/cf9e859aa7b22aac36e2b20f249589f6fb868c31
 |
 Lsrc/main/java/com/minidooray/taskapi/member/controller/MemberController.java,c/4/c47836c35000d2e76c2c90b643d93c53087bfd04
 †
