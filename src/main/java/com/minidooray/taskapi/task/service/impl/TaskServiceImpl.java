@@ -10,6 +10,7 @@ import com.minidooray.taskapi.milestone.entity.Milestone;
 import com.minidooray.taskapi.milestone.exception.NotFoundMilestoneException;
 import com.minidooray.taskapi.milestone.repository.MilestoneRepository;
 import com.minidooray.taskapi.priority.entity.Priority;
+import com.minidooray.taskapi.priority.exception.NotFoundPriorityException;
 import com.minidooray.taskapi.priority.repository.PriorityRepository;
 import com.minidooray.taskapi.project.entity.Project;
 import com.minidooray.taskapi.project.exception.NotFoundProjectException;
@@ -70,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(NotFoundMilestoneException::new);
 
         Priority priority = priorityRepository.findById(dto.getPrioritySeq())
-                .orElseThrow(NotFoundProjectException::new);
+                .orElseThrow(NotFoundPriorityException::new);
 
         Member member = memberRepository.findById(memberSeq)
                 .orElseThrow(NotFoundMemberException::new);
