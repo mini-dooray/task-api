@@ -14,12 +14,15 @@ com/minidooray/taskapi/project/dto/request/RequestCreateProjectDto.class
 com/minidooray/taskapi/membertask/entitiy/MemberTask$MemberTaskBuilder.class
 com/minidooray/taskapi/milestone/entity/QMilestone.class
 com/minidooray/taskapi/tasktag/entity/QTaskTag.class
+com/minidooray/taskapi/tag/entity/Tag$TagBuilder.class
 com/minidooray/taskapi/tag/entity/QTag.class
 com/minidooray/taskapi/membertask/entitiy/MemberTask.class
 com/minidooray/taskapi/tag/service/impl/TagServiceImpl.class
 com/minidooray/taskapi/comment/entity/Comment.class
 com/minidooray/taskapi/milestone/entity/Milestone.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto.class
+com/minidooray/taskapi/task/repository/TaskRepositoryCustom.class
+com/minidooray/taskapi/task/dto/response/ResponseTaskStatusListDto.class
 com/minidooray/taskapi/project/controller/ProjectController.class
 com/minidooray/taskapi/project/entity/Project.class
 com/minidooray/taskapi/membertask/entitiy/QMemberTask.class
@@ -28,6 +31,8 @@ com/minidooray/taskapi/priority/entity/Priority.class
 com/minidooray/taskapi/advice/ErrorResponse.class
 com/minidooray/taskapi/task/entity/TaskPeriod.class
 com/minidooray/taskapi/task/entity/QTask.class
+com/minidooray/taskapi/task/dto/response/ResponseTaskDto$MemberDto.class
+com/minidooray/taskapi/task/dto/response/ResponseTaskListDto$MemberDto.class
 com/minidooray/taskapi/task/entity/Task.class
 com/minidooray/taskapi/priority/entity/QPriority.class
 com/minidooray/taskapi/project/dto/response/ResponseProjectDto.class
@@ -45,11 +50,13 @@ com/minidooray/taskapi/tag/exception/TagNotBelongToProjectException.class
 com/minidooray/taskapi/projectmember/dto/response/ResponseProjectMemberDto.class
 com/minidooray/taskapi/task/entity/Task$TaskBuilder.class
 com/minidooray/taskapi/comment/entity/QComment.class
+com/minidooray/taskapi/tasktag/entity/TaskTag$TaskTagBuilder.class
 com/minidooray/taskapi/project/dto/request/RequestUpdateProjectDto.class
 com/minidooray/taskapi/milestone/dto/response/ResponseMilestoneDto.class
 com/minidooray/taskapi/tasktag/repository/TaskTagRepository.class
 com/minidooray/taskapi/milestone/exception/NotFoundMilestoneException.class
 com/minidooray/taskapi/projectmember/exception/UnauthorizedException.class
+com/minidooray/taskapi/priority/entity/Priority$PriorityBuilder.class
 com/minidooray/taskapi/member/service/MemberService.class
 com/minidooray/taskapi/milestone/entity/MilestonePeriod.class
 com/minidooray/taskapi/project/dto/response/ResponseProjectListDto.class
@@ -62,6 +69,8 @@ com/minidooray/taskapi/comment/dto/response/ResponseCommentDto.class
 com/minidooray/taskapi/tag/service/TagService.class
 com/minidooray/taskapi/milestone/entity/QMilestonePeriod.class
 com/minidooray/taskapi/project/repository/ProjectRepository.class
+com/minidooray/taskapi/priority/service/impl/PriorityServiceImpl.class
+com/minidooray/taskapi/priority/service/PriorityService.class
 com/minidooray/taskapi/projectmember/repository/impl/ProjectMemberRepositoryImpl.class
 com/minidooray/taskapi/priority/exception/NotFoundPriorityException.class
 com/minidooray/taskapi/tag/controller/TagController.class
@@ -81,7 +90,9 @@ com/minidooray/taskapi/tag/exception/NotFoundTagException.class
 com/minidooray/taskapi/milestone/controller/MilestoneController.class
 com/minidooray/taskapi/milestone/service/MilestoneService.class
 com/minidooray/taskapi/milestone/exception/MilestoneNotBelongToProjectException.class
+com/minidooray/taskapi/priority/controller/PriorityController.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto$MemberTaskDto.class
+com/minidooray/taskapi/priority/dto/response/ResponsePriorityDto.class
 com/minidooray/taskapi/projectmember/exception/DuplicateMemberProjectException.class
 com/minidooray/taskapi/comment/entity/CommentPeriod.class
 com/minidooray/taskapi/projectmember/entity/ProjectMember$ProjectMemberBuilder.class
@@ -104,6 +115,7 @@ com/minidooray/taskapi/priority/entity/PriorityStatus.class
 com/minidooray/taskapi/comment/service/CommentService.class
 com/minidooray/taskapi/project/entity/ProjectStatus.class
 com/minidooray/taskapi/member/dto/request/RequestUpdateMemberDto.class
+com/minidooray/taskapi/task/repository/impl/TaskRepositoryImpl.class
 com/minidooray/taskapi/comment/entity/QCommentPeriod.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto$CommentDto.class
 com/minidooray/taskapi/milestone/repository/MilestoneRepository.class
@@ -112,3 +124,4 @@ com/minidooray/taskapi/task/dto/response/ResponseTaskListDto$MemberTaskDto.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto$TaskTagDto.class
 com/minidooray/taskapi/member/service/impl/MemberServiceImpl.class
 com/minidooray/taskapi/projectmember/repository/ProjectMemberRepository.class
+com/minidooray/taskapi/TestUtils.class
