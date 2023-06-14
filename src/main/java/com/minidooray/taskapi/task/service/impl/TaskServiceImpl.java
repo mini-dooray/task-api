@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -77,15 +78,16 @@ public class TaskServiceImpl implements TaskService {
         task.createTask(dto, project, milestone, priority, member);
 
         taskRepository.save(task);
-
-        for (Long tagSeq : dto.getTags()) {
-            Tag tag = tagRepository.findById(tagSeq)
-                    .orElseThrow(NotFoundTagException::new);
-            TaskTag taskTag = TaskTag.builder()
-                    .tag(tag)
-                    .task(task)
-                    .build();
-            taskTagRepository.save(taskTag);
+        if (Objects.nonNull(dto.getTags())) {
+            for (Long tagSeq : dto.getTags()) {
+                Tag tag = tagRepository.findById(tagSeq)
+                        .orElseThrow(NotFoundTagException::new);
+                TaskTag taskTag = TaskTag.builder()
+                        .tag(tag)
+                        .task(task)
+                        .build();
+                taskTagRepository.save(taskTag);
+            }
         }
 
         setMemberTask(task, projectSeq, dto.getManagers(), MemberTaskType.MANAGER);
@@ -108,17 +110,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void setMemberTask(Task task, Long projectSeq, Set<Long> members, MemberTaskType type) {
-        for (Long member : members) {
-            if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(member, projectSeq)) {
-                throw new UnauthorizedException();
+        if (Objects.nonNull(members)) {
+            for (Long member : members) {
+                if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(member, projectSeq)) {
+                    throw new UnauthorizedException();
+                }
+                Member findMember = memberRepository.findById(member)
+                        .orElseThrow(NotFoundMemberException::new);
+                MemberTask memberTask = MemberTask.builder()
+                        .member(findMember)
+                        .type(type)
+                        .task(task).build();
+                memberTaskRepository.save(memberTask);
             }
-            Member findMember = memberRepository.findById(member)
-                    .orElseThrow(NotFoundMemberException::new);
-            MemberTask memberTask = MemberTask.builder()
-                    .member(findMember)
-                    .type(type)
-                    .task(task).build();
-            memberTaskRepository.save(memberTask);
         }
     }
 }
