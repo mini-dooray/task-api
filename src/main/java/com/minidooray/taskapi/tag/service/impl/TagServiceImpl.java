@@ -1,5 +1,6 @@
 package com.minidooray.taskapi.tag.service.impl;
 
+import com.minidooray.taskapi.project.exception.NotFoundProjectException;
 import com.minidooray.taskapi.project.repository.ProjectRepository;
 import com.minidooray.taskapi.tag.dto.request.RequestTagDto;
 import com.minidooray.taskapi.tag.dto.response.ResponseTagDto;
@@ -25,7 +26,8 @@ public class TagServiceImpl implements TagService {
     public void createTag(Long projectSeq, RequestTagDto dto) {
         Tag tag = Tag.builder()
                 .name(dto.getName())
-                .project(projectRepository.getReferenceById(projectSeq))
+                .project(projectRepository.findById(projectSeq)
+                        .orElseThrow(NotFoundProjectException::new))
                 .build();
         tagRepository.save(tag);
     }
