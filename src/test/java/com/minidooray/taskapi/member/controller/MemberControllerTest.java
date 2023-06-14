@@ -28,9 +28,7 @@ class MemberControllerTest {
     void addMember() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        RequestMemberDto dto = new RequestMemberDto();
-        dto.setSeq(1L);
-        dto.setName("test");
+        RequestMemberDto dto = new RequestMemberDto(1L, "test");
 
         memberService.createMember(dto);
         mockMvc.perform(post("/member")
@@ -51,8 +49,7 @@ class MemberControllerTest {
     void modifyMember() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        RequestUpdateMemberDto dto = new RequestUpdateMemberDto();
-        dto.setName("modify");
+        RequestUpdateMemberDto dto = new RequestUpdateMemberDto("modify");
 
         mockMvc.perform(put("/member/1")
                         .contentType(MediaType.APPLICATION_JSON)

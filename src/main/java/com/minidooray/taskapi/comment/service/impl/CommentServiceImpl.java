@@ -47,8 +47,13 @@ public class CommentServiceImpl implements CommentService {
         Member member = memberRepository.findById(dto.getMemberSeq()).orElseThrow(NotFoundMemberException::new);
         Task task = taskRepository.findById(dto.getTaskSeq()).orElseThrow(NotFoundTaskException::new);
 
-        period.setLastUpdateDate(LocalDate.now());
-        period.setRegisteredDate(dto.getRegisteredDate());
+//        period.setLastUpdateDate(LocalDate.now());
+//
+//        period.setRegisteredDate(dto.getRegisteredDate());
+
+        period.uploadRegisterDate(dto);
+
+        period.uploadLastUpdateDate(LocalDate.now());
 
 
         Comment comment = Comment.builder()
@@ -65,23 +70,10 @@ public class CommentServiceImpl implements CommentService {
     public void updateComment(RequestCommentDto dto, Long commentSeq) {
         Comment comment = commentRepository.findBySeq(commentSeq);
         CommentPeriod period = comment.getPeriod();
-        period.setLastUpdateDate(LocalDate.now());
+        period.uploadLastUpdateDate(LocalDate.now());
 
-        comment.setContent(dto.getContent());
-        commentRepository.saveAndFlush(comment);
+        comment.modifyCommentContent(dto);
     }
-
-    /*
-    DELETE comment
-    FROM Comment comment
-    JOIN comment.task task
-    JOIN task.project project
-    JOIN comment.member member
-    WHERE comment.seq = :commentSeq
-    AND project.seq = :projectSeq
-    AND task.seq = :taskSeq
-    AND member.seq = :memberSeq
-     */
     @Transactional
     public void deleteComment(Long taskSeq, Long memberSeq, Long commentSeq) {
         Comment comment = commentRepository.findBySeq(commentSeq);
@@ -90,25 +82,4 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
-
-
-
-    private void setComment(Comment comment, RequestCommentDto dto, Task task, Long memberSeq) {
-//        task.setTitle(dto.getTitle());
-//        task.setContent(dto.getContent());
-//        task.setUploadFile(dto.getUploadFile());
-//        TaskPeriod taskPeriod = new TaskPeriod();
-//        taskPeriod.setRegisteredDate(LocalDate.now());
-//        task.setTaskPeriod(taskPeriod);
-//        task.setProject(project);
-//        Milestone milestone = milestoneRepository.findById(dto.getMilestoneSeq())
-//                .orElseThrow(NotFoundMilestoneException::new);
-//        task.setMilestone(milestone);
-//        Priority priority = priorityRepository.findById(dto.getPrioritySeq())
-//                .orElseThrow(NotFoundProjectException::new);
-//        task.setPriority(priority);
-//        Member member = memberRepository.findById(memberSeq)
-//                .orElseThrow(NotFoundMemberException::new);
-//        task.setRegistrant(member);
-    }
 }

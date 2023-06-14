@@ -1,12 +1,16 @@
 package com.minidooray.taskapi.priority.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "priority")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Priority {
     @Id

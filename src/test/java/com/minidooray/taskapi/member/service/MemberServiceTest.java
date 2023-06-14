@@ -43,9 +43,7 @@ class MemberServiceTest {
     @DisplayName("createMember 성공했을때")
     void createMember() {
         //given
-        RequestMemberDto dto = new RequestMemberDto();
-        dto.setName("test");
-        dto.setSeq(10L);
+        RequestMemberDto dto = new RequestMemberDto(10L, "test");
 
         //when
         when(memberRepository.existsById(dto.getSeq()))
@@ -61,9 +59,7 @@ class MemberServiceTest {
     @DisplayName("createMember 실패했을때")
     void createMemberFail() {
         //given
-        RequestMemberDto dto = new RequestMemberDto();
-        dto.setName("test");
-        dto.setSeq(10L);
+        RequestMemberDto dto = new RequestMemberDto(10L,"test");
 
         //when
         when(memberRepository.existsById(dto.getSeq()))
@@ -81,8 +77,7 @@ class MemberServiceTest {
     void updateMemberName() {
         //given
         Long memberSeq = 10L;
-        RequestUpdateMemberDto dto = new RequestUpdateMemberDto();
-        dto.setName("test");
+        RequestUpdateMemberDto dto = new RequestUpdateMemberDto("test");
 
         Optional<Member> member = Optional.of(new Member());
 

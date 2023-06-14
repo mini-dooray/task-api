@@ -1,6 +1,7 @@
 package com.minidooray.taskapi;
 
 import com.minidooray.taskapi.comment.entity.Comment;
+import com.minidooray.taskapi.comment.entity.CommentPeriod;
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.membertask.entitiy.MemberTask;
 import com.minidooray.taskapi.membertask.entitiy.MemberTaskType;
@@ -25,11 +26,11 @@ public class TestUtils {
 
     }
 
-    public Member member() {
-        return new Member(1L, "tester");
+    public static Member member() {
+        return new Member(1L, "member");
     }
 
-    public MemberTask memberTask(MemberTaskType type, Task task, Member member) {
+    public static MemberTask memberTask(MemberTaskType type, Task task, Member member) {
         return MemberTask.builder()
                 .task(task)
                 .member(member)
@@ -37,11 +38,16 @@ public class TestUtils {
                 .build();
     }
 
-    public Comment comment() {
-        return null;
+    public static Comment comment(Task task, Member member) {
+        return Comment.builder().
+                content("test")
+                .period(new CommentPeriod(LocalDate.now(),LocalDate.now()))
+                .task(task)
+                .member(member)
+                .build();
     }
 
-    public Milestone milestone(Project project) {
+    public static Milestone milestone(Project project) {
         return Milestone.builder()
                 .project(project)
                 .period(new MilestonePeriod(LocalDate.now(), LocalDate.now()))
@@ -49,13 +55,13 @@ public class TestUtils {
                 .build();
     }
 
-    public Priority priority() {
+    public static Priority priority() {
         return Priority.builder()
                 .priorityStatus(PriorityStatus.HIGH)
                 .build();
     }
 
-    public Project project(List<ProjectMember> projectMemberList) {
+    public static Project project(List<ProjectMember> projectMemberList) {
         return Project.builder()
                 .name("project")
                 .content("content")
@@ -64,7 +70,7 @@ public class TestUtils {
                 .build();
     }
 
-    public ProjectMember projectMember(ProjectMemberAuthority authority, Project project, Member member) {
+    public static ProjectMember projectMember(ProjectMemberAuthority authority, Project project, Member member) {
         return ProjectMember.builder()
                 .project(project)
                 .member(member)
@@ -72,14 +78,14 @@ public class TestUtils {
                 .build();
     }
 
-    public Tag tag(Project project) {
+    public static Tag tag(Project project) {
         return Tag.builder()
                 .name("tag")
                 .project(project)
                 .build();
     }
 
-    public Task task(Project project, Milestone milestone, Priority priority, Member registrant, List<MemberTask> memberTasks, List<TaskTag> taskTags
+    public static Task task(Project project, Milestone milestone, Priority priority, Member registrant, List<MemberTask> memberTasks, List<TaskTag> taskTags
             , List<Comment> comments) {
         return Task.builder()
                 .title("title")
@@ -97,7 +103,7 @@ public class TestUtils {
                 .build();
     }
 
-    public TaskTag taskTag(Tag tag, Task task) {
+    public static TaskTag taskTag(Tag tag, Task task) {
         return TaskTag.builder()
                 .tag(tag)
                 .task(task)

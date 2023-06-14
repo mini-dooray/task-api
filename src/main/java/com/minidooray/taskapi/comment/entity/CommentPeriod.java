@@ -1,5 +1,6 @@
 package com.minidooray.taskapi.comment.entity;
 
+import com.minidooray.taskapi.comment.dto.request.RequestCommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 public class CommentPeriod {
     @Column(name = "registered_date")
     private LocalDate registeredDate;
@@ -30,5 +30,13 @@ public class CommentPeriod {
 
     public LocalDate getRecentDate() {
         return Objects.isNull(lastUpdateDate) ? registeredDate : lastUpdateDate;
+    }
+
+    public void uploadRegisterDate(RequestCommentDto dto){
+        this.registeredDate = dto.getRegisteredDate();
+    }
+
+    public void uploadLastUpdateDate(LocalDate date){
+        this.lastUpdateDate=date;
     }
 }

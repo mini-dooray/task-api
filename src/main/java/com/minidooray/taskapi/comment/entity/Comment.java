@@ -1,7 +1,10 @@
 package com.minidooray.taskapi.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.minidooray.taskapi.comment.dto.request.RequestCommentDto;
 import com.minidooray.taskapi.member.entity.Member;
+import com.minidooray.taskapi.milestone.entity.MilestonePeriod;
+import com.minidooray.taskapi.project.entity.Project;
 import com.minidooray.taskapi.task.entity.Task;
 import lombok.*;
 
@@ -9,7 +12,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @Table(name = "comment")
 @NoArgsConstructor
@@ -36,4 +38,17 @@ public class Comment {
 // TODO 3 : 댓글 참조를 할것인지 다시한번 회의 하기.
 //    @OneToMany
 //    private List<ReferenceComment> referenceCommentList;
+
+    public void modifyCommentContent(RequestCommentDto dto){
+        this.content = dto.getContent();
+    }
+
+
+    @Builder
+    public Comment(String content, CommentPeriod period, Task task, Member member) {
+        this.content = content;
+        this.period = period;
+        this.task = task;
+        this.member = member;
+    }
 }
