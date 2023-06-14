@@ -27,8 +27,6 @@ Usrc/main/java/com/minidooray/taskapi/task/dto/response/ResponseTaskStatusListDt
 Nsrc/main/java/com/minidooray/taskapi/task/repository/TaskRepositoryCustom.java,1/3/13b248356231c2561b9e4c1fc8f217254d932d47
 Å
 Qsrc/main/java/com/minidooray/taskapi/task/repository/impl/TaskRepositoryImpl.java,8/a/8aada964ccdcc006dd8f7cb3fbf0cf085db130fa
-Ñ
-Tsrc/main/java/com/minidooray/taskapi/projectmember/service/ProjectMemberService.java,6/e/6e172a7d710ea6d61977068cce95d7efb0ef86bd
 x
 Hsrc/main/java/com/minidooray/taskapi/project/service/ProjectService.java,8/f/8f9913993e844a1b494572fe138e0f982941b27a
 ~
