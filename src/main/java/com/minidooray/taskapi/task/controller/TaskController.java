@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -39,7 +40,7 @@ public class TaskController {
     }
 
     @PostMapping("/member/{memberSeq}")
-    public ResponseEntity<Void> createTask(@RequestBody RequestTaskDto dto, @PathVariable Long memberSeq, @RequestParam Long projectSeq) {
+    public ResponseEntity<Void> createTask(@Valid @RequestBody RequestTaskDto dto, @PathVariable Long memberSeq, @RequestParam Long projectSeq) {
         taskService.createTask(dto, projectSeq, memberSeq);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -47,7 +48,7 @@ public class TaskController {
     @DeleteMapping("/{taskSeq}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskSeq) {
         taskService.deleteTask(taskSeq);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{taskSeq}/project/{projectSeq}")
