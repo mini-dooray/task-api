@@ -4,6 +4,7 @@ import com.minidooray.taskapi.member.dto.request.RequestMemberDto;
 import com.minidooray.taskapi.member.dto.request.RequestUpdateMemberDto;
 import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.member.exception.DuplicateMemberSeqException;
+import com.minidooray.taskapi.member.exception.NotFoundMemberException;
 import com.minidooray.taskapi.member.repository.MemberRepository;
 import com.minidooray.taskapi.member.service.impl.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -59,7 +60,7 @@ class MemberServiceTest {
     @DisplayName("createMember 실패했을때")
     void createMemberFail() {
         //given
-        RequestMemberDto dto = new RequestMemberDto(10L,"test");
+        RequestMemberDto dto = new RequestMemberDto(10L, "test");
 
         //when
         when(memberRepository.existsById(dto.getSeq()))
@@ -88,5 +89,26 @@ class MemberServiceTest {
 
         //then
         verify(memberRepository).findById(memberSeq);
+    }
+
+    @Test
+    @DisplayName("updateMemberName 실패했을때")
+    void updateMemberNameFail() {
+        //given
+        Long memberSeq = 10L;
+        RequestUpdateMemberDto dto = new RequestUpdateMemberDto("test");
+
+        Optional<Member> member = Optional.of(new Member());
+
+        //when
+        when(memberRepository.findById(memberSeq))
+                .thenReturn(Optional.empty());
+
+        try {
+            memberService.updateMemberName(dto, memberSeq);
+        } catch (NotFoundMemberException e) {
+            //then
+            Assertions.assertThat(e.getClass()).isEqualTo(NotFoundMemberException.class);
+        }
     }
 }
