@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface TagRepository extends JpaRepository<Tag, Long> {
     ResponseTagDto findBySeq(Long tagSeq);
 
-    List<ResponseTagDto> findAllByProjectSeq(Long tagSeq);
+    List<ResponseTagDto> findAllByProjectSeq(Long projectSeq);
 
     boolean existsByName(String name);
 }
