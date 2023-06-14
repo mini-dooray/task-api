@@ -70,11 +70,9 @@ class TaskRepositoryTest {
         //given
         Member member = TestUtils.member();
         entityManager.persist(member);
-        Project project = TestUtils.project();
-        entityManager.persist(project);
-        Milestone milestone = TestUtils.milestone(project);
+        Milestone milestone = TestUtils.milestone(null);
         entityManager.persist(milestone);
-        Task task = TestUtils.task(project, milestone, null, member, null, null, null);
+        Task task = TestUtils.task(null, milestone, null, member, null, null, null);
 
         //when
         entityManager.persist(task);
