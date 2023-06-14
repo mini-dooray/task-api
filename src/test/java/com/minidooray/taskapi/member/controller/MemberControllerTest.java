@@ -1,14 +1,14 @@
 package com.minidooray.taskapi.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.minidooray.taskapi.TestUtils;
 import com.minidooray.taskapi.member.dto.request.RequestMemberDto;
 import com.minidooray.taskapi.member.dto.request.RequestUpdateMemberDto;
-import com.minidooray.taskapi.member.service.MemberService;
+import com.minidooray.taskapi.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,17 +20,14 @@ class MemberControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private MemberService memberService;
-
     @Test
     @DisplayName("addMember : body 데이터가 존재할때")
     void addMember() throws Exception {
+        Member member = TestUtils.member();
         ObjectMapper objectMapper = new ObjectMapper();
 
         RequestMemberDto dto = new RequestMemberDto(1L, "test");
 
-        memberService.createMember(dto);
         mockMvc.perform(post("/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
