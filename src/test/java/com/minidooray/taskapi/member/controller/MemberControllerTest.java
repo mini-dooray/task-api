@@ -28,7 +28,6 @@ class MemberControllerTest {
     @Test
     @DisplayName("addMember : body 데이터가 존재할때")
     void addMember() throws Exception {
-        Member member = TestUtils.member();
         ObjectMapper objectMapper = new ObjectMapper();
 
         RequestMemberDto dto = new RequestMemberDto(1L, "test");
