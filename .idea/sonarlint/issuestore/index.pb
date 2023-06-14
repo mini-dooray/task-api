@@ -53,14 +53,10 @@ Usrc/main/java/com/minidooray/taskapi/task/dto/response/ResponseTaskStatusListDt
 Nsrc/main/java/com/minidooray/taskapi/task/repository/TaskRepositoryCustom.java,1/3/13b248356231c2561b9e4c1fc8f217254d932d47
 Å
 Qsrc/main/java/com/minidooray/taskapi/task/repository/impl/TaskRepositoryImpl.java,8/a/8aada964ccdcc006dd8f7cb3fbf0cf085db130fa
-Ç
-Rsrc/test/java/com/minidooray/taskapi/tasktag/repository/TaskTagRepositoryTest.java,1/f/1fb64bfb031d2982bc4ca9048a1522aae5ae2a84
 r
 Bsrc/main/java/com/minidooray/taskapi/task/service/TaskService.java,d/5/d57b4dab7c0e3ece4afa56e1fe950feefe8ea212
 v
 Fsrc/test/java/com/minidooray/taskapi/task/service/TaskServiceTest.java,b/e/bea2c28223b5f0aa2021315659e07b4175a4c5f0
-|
-Lsrc/test/java/com/minidooray/taskapi/task/repository/TaskRepositoryTest.java,4/c/4c40c99b136eb978d2c7359376bbc0e4d80e31de
 |
 Lsrc/test/java/com/minidooray/taskapi/task/controller/TaskControllerTest.java,d/1/d1fab359387eddbc9f0f09b72754d0d738e23682
 v
@@ -97,7 +93,5 @@ Jsrc/main/java/com/minidooray/taskapi/priority/service/PriorityService.java,4/7
 Nsrc/test/java/com/minidooray/taskapi/priority/service/PriorityServiceTest.java,9/b/9b6173e465f8fe97f7f56c8744a55da84d66dbeb
 Ä
 Psrc/main/java/com/minidooray/taskapi/priority/repository/PriorityRepository.java,8/1/810076e626e3d74be4c3a2d4d93b64bc2466b8e0
-Ä
-Psrc/main/java/com/minidooray/taskapi/priority/controller/PriorityController.java,1/0/105ddb10a94c152a8c81882d48b811d7f19023b7
 Ñ
 Tsrc/test/java/com/minidooray/taskapi/priority/repository/PriorityRepositoryTest.java,5/4/54170e51c55b054d94f53077bf9f9cd6fa112e72
