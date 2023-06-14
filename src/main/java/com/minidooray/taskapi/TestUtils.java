@@ -41,7 +41,7 @@ public class TestUtils {
     public static Comment comment(Task task, Member member) {
         return Comment.builder().
                 content("test")
-                .period(new CommentPeriod(LocalDate.now(),LocalDate.now()))
+                .period(new CommentPeriod(LocalDate.now(), LocalDate.now()))
                 .task(task)
                 .member(member)
                 .build();
@@ -61,12 +61,11 @@ public class TestUtils {
                 .build();
     }
 
-    public static Project project(List<ProjectMember> projectMemberList) {
+    public static Project project() {
         return Project.builder()
                 .name("project")
                 .content("content")
                 .status(ProjectStatus.ACTIVE)
-                .projectMemberList(projectMemberList)
                 .build();
     }
 
@@ -85,8 +84,8 @@ public class TestUtils {
                 .build();
     }
 
-    public static Task task(Project project, Milestone milestone, Priority priority, Member registrant, List<MemberTask> memberTasks, List<TaskTag> taskTags
-            , List<Comment> comments) {
+    public static Task task(Project project, Milestone milestone, Priority priority, Member registrant
+    , List<MemberTask> memberTasks,List<TaskTag> taskTags,List<Comment> comments) {
         return Task.builder()
                 .title("title")
                 .content("content")
