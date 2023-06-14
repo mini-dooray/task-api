@@ -65,8 +65,9 @@ class MemberRepositoryTest {
         //then
         assertThat(check).isTrue();
     }
+
     @Test
-    void findById(){
+    void findById() {
         //given
         Member member = TestUtils.member();
 
