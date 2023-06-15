@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">task-api</a> &gt; <a href="index.source.html" class="el_package">com.minidooray.taskapi.project.service</a> &gt; <span class="el_source">ProjectService.java</span></div><h1>ProjectService.java</h1><pre class="source lang-java linenums">package com.minidooray.taskapi.project.service;
+
+import com.minidooray.taskapi.project.dto.request.RequestCreateProjectDto;
+import com.minidooray.taskapi.project.dto.request.RequestUpdateProjectDto;
+import com.minidooray.taskapi.project.dto.response.ResponseProjectDto;
+import com.minidooray.taskapi.project.dto.response.ResponseProjectListDto;
+import com.minidooray.taskapi.project.entity.Project;
+
+import java.util.List;
+
+public interface ProjectService {
+    ResponseProjectDto getProject(Long projectSeq);
+
+    ResponseProjectDto createProject(RequestCreateProjectDto dto, Long memberSeq);
+
+    ResponseProjectDto updateProject(Long projectSeq, RequestUpdateProjectDto dto);
+
+    void deleteProject(Long seq);
+
+    List&lt;ResponseProjectListDto&gt; getProjects(Long memberSeq);
+    boolean authorizationCheckProjectSeqAndMemberSeq(Long projectSeq, Long memberSeq);
+    boolean checkDuplicateName(String projectName);
+
+    default ResponseProjectDto createResponseProjectDtoByEntity(Project project) {
+<span class="fc" id="L25">        ResponseProjectDto responseProjectDto = new ResponseProjectDto();</span>
+<span class="fc" id="L26">        responseProjectDto.setSeq(project.getSeq());</span>
+<span class="fc" id="L27">        responseProjectDto.setName(project.getName());</span>
+<span class="fc" id="L28">        responseProjectDto.setStatus(project.getStatus());</span>
+<span class="fc" id="L29">        responseProjectDto.setContent(project.getContent());</span>
+<span class="fc" id="L30">        return responseProjectDto;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

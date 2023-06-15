@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectMemberController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">task-api</a> &gt; <a href="index.source.html" class="el_package">com.minidooray.taskapi.projectmember.controller</a> &gt; <span class="el_source">ProjectMemberController.java</span></div><h1>ProjectMemberController.java</h1><pre class="source lang-java linenums">package com.minidooray.taskapi.projectmember.controller;
+
+import com.minidooray.taskapi.member.entity.Member;
+import com.minidooray.taskapi.projectmember.dto.request.RequestProjectMemberCreateDto;
+import com.minidooray.taskapi.projectmember.dto.request.RequestProjectMemberDto;
+import com.minidooray.taskapi.projectmember.service.ProjectMemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@RestController
+<span class="fc" id="L16">@RequiredArgsConstructor</span>
+@RequestMapping(&quot;/project/{projectSeq}/projectMember&quot;)
+public class ProjectMemberController {
+    private final ProjectMemberService projectMemberService;
+
+    @GetMapping(&quot;/members&quot;)
+    public ResponseEntity&lt;List&lt;Member&gt;&gt; getMembers(@PathVariable Long projectSeq) {
+<span class="fc" id="L23">        return ResponseEntity.status(HttpStatus.OK)</span>
+<span class="fc" id="L24">                .body(projectMemberService.getMemberByProjectSeq(projectSeq));</span>
+    }
+
+    @PostMapping(&quot;/member&quot;)
+    public ResponseEntity&lt;Void&gt; addMember(@PathVariable Long projectSeq, @Valid @RequestBody RequestProjectMemberCreateDto dto) {
+<span class="fc" id="L29">        projectMemberService.addMember(dto.getMemberSeq(), projectSeq);</span>
+<span class="fc" id="L30">        return ResponseEntity.status(HttpStatus.CREATED).build();</span>
+    }
+
+    @PutMapping(&quot;/{memberSeq}&quot;)
+    public ResponseEntity&lt;Void&gt; updateMemberAuthority(@PathVariable Long memberSeq, @PathVariable Long projectSeq, @Valid @RequestBody RequestProjectMemberDto dto) {
+<span class="fc" id="L35">        projectMemberService.updateAuthority(memberSeq, projectSeq, dto.getAuthority());</span>
+<span class="fc" id="L36">        return ResponseEntity.status(HttpStatus.OK).build();</span>
+    }
+
+    @DeleteMapping(&quot;/{memberSeq}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteMember(@PathVariable Long memberSeq, @PathVariable Long projectSeq) {
+<span class="fc" id="L41">        projectMemberService.deleteProjectMember(memberSeq, projectSeq);</span>
+<span class="fc" id="L42">        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();</span>
+    }
+
+    @GetMapping(&quot;admin/{adminSeq}&quot;)
+    public ResponseEntity&lt;Boolean&gt; authorizationCheckMemberIsAdmin(@PathVariable Long projectSeq, @PathVariable Long adminSeq) {
+<span class="fc" id="L47">        return ResponseEntity.status(HttpStatus.OK)</span>
+<span class="fc" id="L48">                .body(projectMemberService.authorizationCheckMemberIsAdmin(projectSeq, adminSeq));</span>
+    }
+
+    @GetMapping(&quot;member/{memberSeq}&quot;)
+    public ResponseEntity&lt;Boolean&gt; authorizationCheckMemberSeqAndProjectSeq(@PathVariable Long projectSeq, @PathVariable Long memberSeq) {
+<span class="nc" id="L53">        return ResponseEntity.status(HttpStatus.OK)</span>
+<span class="nc" id="L54">                .body(projectMemberService.authorizationCheckMemberSeqAndProjectSeq(memberSeq, projectSeq));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectMemberServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">task-api</a> &gt; <a href="index.source.html" class="el_package">com.minidooray.taskapi.projectmember.service.impl</a> &gt; <span class="el_source">ProjectMemberServiceImpl.java</span></div><h1>ProjectMemberServiceImpl.java</h1><pre class="source lang-java linenums">package com.minidooray.taskapi.projectmember.service.impl;
+
+import com.minidooray.taskapi.member.entity.Member;
+import com.minidooray.taskapi.member.exception.NotFoundMemberException;
+import com.minidooray.taskapi.member.repository.MemberRepository;
+import com.minidooray.taskapi.project.entity.Project;
+import com.minidooray.taskapi.project.exception.NotFoundProjectException;
+import com.minidooray.taskapi.project.repository.ProjectRepository;
+import com.minidooray.taskapi.projectmember.entity.ProjectMember;
+import com.minidooray.taskapi.projectmember.entity.ProjectMemberAuthority;
+import com.minidooray.taskapi.projectmember.exception.DuplicateMemberProjectException;
+import com.minidooray.taskapi.projectmember.repository.ProjectMemberRepository;
+import com.minidooray.taskapi.projectmember.service.ProjectMemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L21">@RequiredArgsConstructor</span>
+public class ProjectMemberServiceImpl implements ProjectMemberService {
+    private final ProjectMemberRepository projectMemberRepository;
+    private final ProjectRepository projectRepository;
+    private final MemberRepository memberRepository;
+
+    @Transactional(readOnly = true)
+    public List&lt;Member&gt; getMemberByProjectSeq(Long projectSeq) {
+<span class="fc" id="L29">        return projectMemberRepository.findAllByProjectSeq(projectSeq);</span>
+    }
+
+    @Transactional
+    public void addMember(Long memberSeq, Long projectSeq) {
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (!projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq, projectSeq)) {</span>
+<span class="nc" id="L35">            throw new DuplicateMemberProjectException();</span>
+        }
+<span class="fc" id="L37">        Project project = projectRepository.findById(projectSeq)</span>
+<span class="fc" id="L38">                .orElseThrow(NotFoundProjectException::new);</span>
+<span class="fc" id="L39">        Member member = memberRepository.findById(memberSeq)</span>
+<span class="fc" id="L40">                .orElseThrow(NotFoundMemberException::new);</span>
+
+<span class="fc" id="L42">        ProjectMember build = ProjectMember.builder()</span>
+<span class="fc" id="L43">                .project(project)</span>
+<span class="fc" id="L44">                .member(member)</span>
+<span class="fc" id="L45">                .authority(ProjectMemberAuthority.MEMBER)</span>
+<span class="fc" id="L46">                .build();</span>
+<span class="fc" id="L47">        projectMemberRepository.save(build);</span>
+<span class="fc" id="L48">    }</span>
+
+    @Transactional
+    public void updateAuthority(Long memberSeq, Long projectSeq, ProjectMemberAuthority authority) {
+<span class="fc" id="L52">        ProjectMember projectMember = projectMemberRepository.findByMemberSeqAndProjectSeq(memberSeq, projectSeq);</span>
+<span class="fc" id="L53">        projectMember.updateAuthority(authority);</span>
+<span class="fc" id="L54">    }</span>
+
+    @Transactional
+    public void deleteProjectMember(Long memberSeq, Long projectSeq) {
+<span class="fc" id="L58">        projectMemberRepository.deleteByMemberSeqAndProjectSeq(memberSeq, projectSeq);</span>
+<span class="fc" id="L59">    }</span>
+
+    @Transactional
+    public boolean authorizationCheckMemberIsAdmin(Long projectSeq, Long adminSeq) {
+<span class="fc" id="L63">        ProjectMember projectMember = projectMemberRepository.findByMemberSeqAndProjectSeq(adminSeq, projectSeq);</span>
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">        return !(projectMember == null || !projectMember.getAuthority().equals(ProjectMemberAuthority.ADMIN));</span>
+    }
+    @Transactional
+    public boolean authorizationCheckMemberSeqAndProjectSeq(Long memberSeq, Long projectSeq){
+<span class="fc" id="L68">        return projectMemberRepository.existsByMemberSeqAndProjectSeq(memberSeq,projectSeq);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

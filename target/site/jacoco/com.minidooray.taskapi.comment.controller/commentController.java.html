@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>commentController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">task-api</a> &gt; <a href="index.source.html" class="el_package">com.minidooray.taskapi.comment.controller</a> &gt; <span class="el_source">commentController.java</span></div><h1>commentController.java</h1><pre class="source lang-java linenums">package com.minidooray.taskapi.comment.controller;
+
+
+import com.minidooray.taskapi.comment.dto.request.RequestCommentDto;
+import com.minidooray.taskapi.comment.entity.Comment;
+import com.minidooray.taskapi.comment.service.CommentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/project/comment&quot;)
+<span class="fc" id="L17">@RequiredArgsConstructor</span>
+public class commentController {
+    private final CommentService commentService;
+
+
+    @GetMapping(&quot;/{commentSeq}&quot;)
+    public ResponseEntity&lt;Comment&gt; getComment(@PathVariable Long commentSeq) {
+<span class="nc" id="L24">        Comment comment = commentService.getComment(commentSeq);</span>
+<span class="nc" id="L25">        return ResponseEntity.status(HttpStatus.OK).body(comment);</span>
+    }
+
+    @GetMapping(&quot;/list/{memberSeq}&quot;)
+    public ResponseEntity&lt;List&lt;Comment&gt;&gt; getCommentsByMemberSeq(@PathVariable Long memberSeq){
+<span class="nc" id="L30">        List&lt;Comment&gt; comment = commentService.getComments(memberSeq);</span>
+<span class="nc" id="L31">        return ResponseEntity.status(HttpStatus.OK).body(comment);</span>
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;Void&gt; createComment(@RequestBody RequestCommentDto dto) {
+<span class="nc" id="L36">        commentService.createComment(dto);</span>
+<span class="nc" id="L37">        return ResponseEntity.status(HttpStatus.CREATED).build();</span>
+    }
+    @PutMapping(&quot;/{commentSeq}&quot;)
+    public ResponseEntity&lt;Void&gt; updateComment(@RequestBody RequestCommentDto dto, @PathVariable Long commentSeq) {
+<span class="nc" id="L41">        commentService.updateComment(dto,commentSeq);</span>
+<span class="nc" id="L42">        return ResponseEntity.status(HttpStatus.OK).build();</span>
+    }
+
+    @DeleteMapping(&quot;/{commentSeq}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteComment(@RequestParam Long taskSeq, @RequestParam Long memberSeq, @PathVariable Long commentSeq) {
+<span class="nc" id="L47">        commentService.deleteComment(taskSeq,memberSeq,commentSeq);</span>
+<span class="nc" id="L48">        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

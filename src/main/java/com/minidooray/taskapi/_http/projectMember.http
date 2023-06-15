@@ -20,7 +20,7 @@ Host: localhost:8002
 ### put
 #Hibernate: select projectmem0_.project_member_seq as project_1_6_0_, member1_.member_seq as member_s1_1_1_, project2_.project_seq as project_1_5_2_, projectmem0_.authority as authorit2_6_0_, projectmem0_.member_seq as member_s3_6_0_, projectmem0_.project_seq as project_4_6_0_, member1_.name as name2_1_1_, project2_.content as content2_5_2_, project2_.name as name3_5_2_, project2_.status as status4_5_2_ from project_member projectmem0_ left outer join member member1_ on projectmem0_.member_seq=member1_.member_seq left outer join project project2_ on projectmem0_.project_seq=project2_.project_seq where member1_.member_seq=? and project2_.project_seq=?
 #Hibernate: update project_member set authority=?, member_seq=?, project_seq=? where project_member_seq=?
-PUT /project/1/projectMember/3
+PUT /project/1/projectMember/2
 Content-Type: application/json
 Host: localhost:8002
 
