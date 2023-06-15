@@ -1,6 +1,0 @@
-projectKey=taskapi
-serverUrl=http://133.186.144.236:9000
-serverVersion=8.9.1.44547
-dashboardUrl=http://133.186.144.236:9000/dashboard?id=taskapi
-ceTaskId=AYi8bv0YcEbaFeZa3Kvr
-ceTaskUrl=http://133.186.144.236:9000/api/ce/task?id=AYi8bv0YcEbaFeZa3Kvr

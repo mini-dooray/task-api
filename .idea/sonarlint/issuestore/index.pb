@@ -25,8 +25,6 @@ Nsrc/main/java/com/minidooray/taskapi/task/repository/TaskRepositoryCustom.java
 Qsrc/main/java/com/minidooray/taskapi/task/repository/impl/TaskRepositoryImpl.java,8/a/8aada964ccdcc006dd8f7cb3fbf0cf085db130fa
 x
 Hsrc/main/java/com/minidooray/taskapi/project/service/ProjectService.java,8/f/8f9913993e844a1b494572fe138e0f982941b27a
-~
-Nsrc/main/java/com/minidooray/taskapi/project/controller/ProjectController.java,6/2/624e14c9236aec6a564a110675bc8cac9a9de40c
 z
 Jsrc/main/java/com/minidooray/taskapi/priority/service/PriorityService.java,4/7/47fdf79323ba22d2d82c288a551a2bb928940372
 ~
