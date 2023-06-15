@@ -5,7 +5,6 @@ import com.minidooray.taskapi.member.entity.Member;
 import com.minidooray.taskapi.project.entity.Project;
 import com.minidooray.taskapi.projectmember.entity.ProjectMember;
 import com.minidooray.taskapi.projectmember.entity.ProjectMemberAuthority;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -71,8 +70,9 @@ class ProjectMemberRepositoryTest {
 
         assertThat(find).isNull();
     }
+
     @Test
-    void findAllByProjectSeq(){
+    void findAllByProjectSeq() {
         //given
         Project project = TestUtils.project();
         entityManager.persist(project);
@@ -82,7 +82,7 @@ class ProjectMemberRepositoryTest {
         entityManager.persist(projectMember1);
 
         Member member2 = TestUtils.member();
-        ReflectionTestUtils.setField(member2,"seq",2L);
+        ReflectionTestUtils.setField(member2, "seq", 2L);
         entityManager.persist(member2);
         ProjectMember projectMember2 = TestUtils.projectMember(ProjectMemberAuthority.ADMIN, project, member2);
         entityManager.persist(projectMember2);
@@ -98,8 +98,9 @@ class ProjectMemberRepositoryTest {
         assertThat(list.get(1).getName()).isEqualTo(member2.getName());
         assertThat(list.get(1).getSeq()).isEqualTo(member2.getSeq());
     }
+
     @Test
-    void existsByMemberSeqAndProjectSeq(){
+    void existsByMemberSeqAndProjectSeq() {
         //given
         Project project = TestUtils.project();
         entityManager.persist(project);

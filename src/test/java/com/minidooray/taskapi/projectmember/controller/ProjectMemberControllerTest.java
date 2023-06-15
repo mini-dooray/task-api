@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minidooray.taskapi.projectmember.dto.request.RequestProjectMemberCreateDto;
 import com.minidooray.taskapi.projectmember.dto.request.RequestProjectMemberDto;
 import com.minidooray.taskapi.projectmember.entity.ProjectMemberAuthority;
-import com.minidooray.taskapi.projectmember.exception.DuplicateMemberProjectException;
 import com.minidooray.taskapi.projectmember.service.ProjectMemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,6 +48,7 @@ class ProjectMemberControllerTest {
                 .andExpect(status().isCreated())
                 .andDo(print());
     }
+
     @Test
     @DisplayName("addMember : Valid 테스트")
     void addMemberFail() throws Exception {
