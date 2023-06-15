@@ -1,0 +1,14 @@
+com/minidooray/taskapi/projectmember/service/ProjectMemberServiceTest.class
+com/minidooray/taskapi/priority/repository/PriorityRepositoryTest.class
+com/minidooray/taskapi/milestone/service/MilestoneServiceTest.class
+com/minidooray/taskapi/comment/service/CommentServiceTest.class
+com/minidooray/taskapi/membertask/repository/MemberTaskRepositoryTest.class
+com/minidooray/taskapi/project/controller/ProjectControllerTest.class
+com/minidooray/taskapi/member/repository/MemberRepositoryTest.class
+com/minidooray/taskapi/TaskApiApplicationTests.class
+com/minidooray/taskapi/milestone/controller/MilestoneControllerTest.class
+com/minidooray/taskapi/task/controller/TaskControllerTest.class
+com/minidooray/taskapi/member/service/MemberServiceTest.class
+com/minidooray/taskapi/milestone/repository/MilestoneRepositoryTest.class
+com/minidooray/taskapi/priority/controller/PriorityControllerTest.class
+com/minidooray/taskapi/task/service/TaskServiceTest.class

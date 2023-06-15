@@ -1,12 +1,8 @@
 package com.minidooray.taskapi.comment.repository;
 
 import com.minidooray.taskapi.TestUtils;
-import com.minidooray.taskapi.comment.dto.response.ResponseCommentDto;
 import com.minidooray.taskapi.comment.entity.Comment;
-import com.minidooray.taskapi.comment.entity.CommentPeriod;
 import com.minidooray.taskapi.member.entity.Member;
-import com.minidooray.taskapi.member.repository.MemberRepository;
-import com.minidooray.taskapi.project.entity.Project;
 import com.minidooray.taskapi.task.entity.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

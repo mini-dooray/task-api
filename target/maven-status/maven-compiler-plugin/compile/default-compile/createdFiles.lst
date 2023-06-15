@@ -62,6 +62,7 @@ com/minidooray/taskapi/milestone/entity/MilestonePeriod.class
 com/minidooray/taskapi/project/dto/response/ResponseProjectListDto.class
 com/minidooray/taskapi/comment/repository/CommentRepository.class
 com/minidooray/taskapi/tag/dto/request/RequestTagDto.class
+com/minidooray/taskapi/comment/exception/NotFoundCommentException.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto$MilestoneDto.class
 com/minidooray/taskapi/task/dto/response/ResponseTaskDto$TaskTagDto$TagDto.class
 com/minidooray/taskapi/comment/dto/response/ResponseCommentDto.class

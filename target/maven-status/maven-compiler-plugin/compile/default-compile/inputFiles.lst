@@ -92,3 +92,4 @@
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/projectmember/entity/ProjectMemberAuthority.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/member/exception/NotFoundMemberException.java
 /Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/comment/dto/request/RequestCommentDto.java
+/Users/sangwoong/Documents/mini-dooray/task-api/src/main/java/com/minidooray/taskapi/comment/exception/NotFoundCommentException.java

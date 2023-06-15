@@ -35,9 +35,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "writer_seq")
     private Member member;
-// TODO 3 : 댓글 참조를 할것인지 다시한번 회의 하기.
-//    @OneToMany
-//    private List<ReferenceComment> referenceCommentList;
+
+
 
     public void modifyCommentContent(RequestCommentDto dto){
         this.content = dto.getContent();
@@ -50,5 +49,9 @@ public class Comment {
         this.period = period;
         this.task = task;
         this.member = member;
+    }
+
+    public void addTask(Task task) {
+        this.task = task;
     }
 }
